@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juan D. Montoro-Pons">
+
+<title>Data structures in Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="1_Data_structures_files/libs/clipboard/clipboard.min.js"></script>
+<script src="1_Data_structures_files/libs/quarto-html/quarto.js"></script>
+<script src="1_Data_structures_files/libs/quarto-html/popper.min.js"></script>
+<script src="1_Data_structures_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="1_Data_structures_files/libs/quarto-html/anchor.min.js"></script>
+<link href="1_Data_structures_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="1_Data_structures_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="1_Data_structures_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="1_Data_structures_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="1_Data_structures_files/libs/bootstrap/bootstrap-973236bd072d72a04ee9cd82dcc9cb29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/editor/editor.main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+<style type="text/css">
+.monaco-editor pre {
+  background-color: unset !important;
+}
+
+.qpyodide-editor-toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.qpyodide-editor-toolbar-left-buttons, .qpyodide-editor-toolbar-right-buttons {
+  display: flex;
+}
+
+.qpyodide-non-interactive-loading-container.qpyodide-cell-needs-evaluation, .qpyodide-non-interactive-loading-container.qpyodide-cell-evaluated {
+  justify-content: center;
+  display: flex;
+  background-color: rgba(250, 250, 250, 0.65);
+  border: 1px solid rgba(233, 236, 239, 0.65);
+  border-radius: 0.5rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.qpyodide-r-project-logo {
+  color: #2767B0; /* R Project's blue color */
+}
+
+.qpyodide-icon-status-spinner {
+  color: #7894c4;
+}
+
+.qpyodide-icon-run-code {
+  color: #0d9c29
+}
+
+.qpyodide-output-code-stdout {
+  color: #111;
+}
+
+.qpyodide-output-code-stderr {
+  color: #db4133;
+}
+
+.qpyodide-editor {
+  border: 1px solid #EEEEEE;
+}
+
+.qpyodide-editor-toolbar {
+  background-color: #EEEEEE;
+  padding: 0.2rem 0.5rem;
+}
+
+.qpyodide-button {
+  background-color: #EEEEEE;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+  border-color: #dee2e6;
+  border: 1px solid rgba(0,0,0,0);
+  padding: 0.375rem 0.75rem;
+  font-size: .9rem;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.qpyodide-button:hover {
+  color: #000;
+  background-color: #d9dce0;
+  border-color: #c8ccd0;
+}
+
+.qpyodide-button:disabled,.qpyodide-button.disabled,fieldset:disabled .qpyodide-button {
+  pointer-events: none;
+  opacity: .65
+}
+
+.qpyodide-button-reset {
+  color: #696969; /*#4682b4;*/
+}
+
+.qpyodide-button-copy {
+  color: #696969;
+}
+
+
+/* Custom styling for RevealJS Presentations*/
+
+/* Reset the style of the interactive area */
+.reveal div.qpyodide-interactive-area {
+  display: block;
+  box-shadow: none;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+} 
+
+/* Provide space to entries */
+.reveal div.qpyodide-output-code-area pre div {
+  margin: 1px 2px 1px 10px;
+}
+
+/* Collapse the inside code tags to avoid extra space between line outputs */
+.reveal pre div code.qpyodide-output-code-stdout, .reveal pre div code.qpyodide-output-code-stderr {
+  padding: 0;
+  display: contents;
+}
+
+.reveal pre div code.qpyodide-output-code-stdout {
+  color: #111;
+}
+
+.reveal pre div code.qpyodide-output-code-stderr {
+  color: #db4133;
+}
+
+
+/* Create a border around console and output (does not effect graphs) */
+.reveal div.qpyodide-console-area {
+  border: 1px solid #EEEEEE;
+  box-shadow: 2px 2px 10px #EEEEEE;
+}
+
+/* Cap output height and allow text to scroll */
+/* TODO: Is there a better way to fit contents/max it parallel to the monaco editor size? */
+.reveal div.qpyodide-output-code-area pre {
+  max-height: 400px;
+  overflow: scroll;
+}
+</style>
+<script type="module">
+// Document level settings ----
+
+// Determine if we need to install python packages
+globalThis.qpyodideInstallPythonPackagesList = [''];
+
+// Check to see if we have an empty array, if we do set to skip the installation.
+globalThis.qpyodideSetupPythonPackages = !(qpyodideInstallPythonPackagesList.indexOf("") !== -1);
+
+// Display a startup message?
+globalThis.qpyodideShowStartupMessage = true;
+
+// Describe the webR settings that should be used
+globalThis.qpyodideCustomizedPyodideOptions = {
+  "indexURL": "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/",
+  "env": {
+    "HOME": "/home/pyodide",
+  }, 
+  stdout: (text) => {qpyodideAddToOutputArray(text, "out");},
+  stderr: (text) => {qpyodideAddToOutputArray(text, "error");}
+}
+
+// Store cell data
+globalThis.qpyodideCellDetails = [{"code":"a = [0, 1, 1, 2, 3, 5, 8, 13]\nb = [5., \"hello\", 2+0j, \"horse\", 21]\na\n# Run the code chunk by clicking Run Code. \n# You can also run individual lines with cmd+enter (mac) or  alt+enter (win)\n# You can also edit and run a line. Try to show object b","id":1,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"b[0] # Output: 5.0\nb[1] # Output: 'hello'\nb[2] # Output: (2+0j)","id":2,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"b[0] = b[0] + 2\nb[3] = 3.14159","id":3,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"a = [1, 2, 3]\nb = [4, 5, 6]\na + b # Output: [1, 2, 3, 4, 5, 6]","id":4,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"a.append('This is an element')\na","id":5,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x = (1, 2, 'hello', 3)\nx[1] # Output: 2","id":6,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"\npoint = (3,-1,2)\nx, y, z = point  \n\n# Try and see how x, y and z have stored the corresponding values\n\n# You can also unpack just part of the tuple. Uncomment and try the code below\n# x1,x2, _ = point","id":7,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"   phone_book = {\"Alice\": \"123-456-7890\", \"Bob\": \"987-654-3210\"}\n   phone_book[\"Alice\"]  # Output: 123-456-7890","id":8,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"Rooms = {\"Rafa\": 105, \"Teresa\": 406, \"Marta\": 256}\nRooms.get(\"Teresa\")  # Output: 406","id":9,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"import NumPy as np\ndate = np.array([2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008])\ndate # Output: [2001 2002 2003 2004 2005 2006 2007 2008]","id":10,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"np.arange(1, 7, 2) # Output: array([1, 3, 5])\nnp.arange(0., 10, 2) # Output: array([ 0., 2., 4., 6., 8.])\nnp.arange(0, 10, 1.5) # Output: array([ 0. , 1.5, 3. , 4.5, 6. , 7.5, 9. ])","id":11,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"np.linspace(0, 1, 5)  # Output: array([0. , 0.25, 0.5 , 0.75, 1. ])\nnp.linspace(1, 10, 4)  # Output: array([ 1.,  4.,  7., 10.])","id":12,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"\nnp.logspace(0, 3, 4)  # Output: array([   1.,   10.,  100., 1000.])\nnp.logspace(-1, 1, 5) # Output: array([ 0.1 ,  0.316,  1.   ,  3.162, 10. ])","id":13,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"A = np.array([[9., 2., 4.], [1., 3., 2.], [6., 5., 4.]])\nprint(A)\n# Output:\n# array([[9., 2., 4.],\n#        [1., 3., 2.],\n#        [6., 5., 4.]])","id":14,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"Z = np.zeros([3, 4])\nU = np.ones([4, 2])\nI = np.eye(4)","id":15,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"U.shape","id":16,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x = np.array([12, 8, -2, 0, 32, 2])\nx[3] # Output: 0\nx[5] = 1\nx # Output: array([12, 8, -2, 0, 32, 1])","id":17,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"A = np.array([[12, 9, 2, 3], [-1, 3, 9, 1], [0, 5, 0, 3]])\nA[1, 3] # Output: 1\nA[2, 0] = 20\nA","id":18,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x = np.array([0.3, 0.1, 1.3, 1.7, -2.4, 0.9])\nx[[0, 1]] # Output: array([0.1, 1.3])\nx[[4, 2, 5]] # Output: array([-2.4, 1.3, 0.9])\nindex = [3, 1, 2]\nx[index] # Output: array([1.7, 0.1, 1.3])","id":19,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"v = np.array([2, 1, 3, 4])\nv = np.append(v, -1)\nw = np.array([10, -2, 18])\nv = np.insert(v, 2, w)","id":20,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"v = np.array([3, 12, 9, 2, 4, 16, -2, 3, 21, 56])\nv = np.delete(v, 3) # Delete the fourth element\nnp.delete(v, np.arange(4, 8)) # Delete elements 5 to 8","id":21,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"v1 = np.array([9, 8, 7, 6, 5, 4, 3])\nv2 = np.array([1, 2, 3, 4, 5, 6, 7])\nv1 + v2 # Output: array([10, 10, 10, 10, 10, 10, 10])\nv1 - v2 # Output: array([ 8, 6, 4, 2, 0, -2, -4])","id":22,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x = np.linspace(0, np.pi, 5)\nnp.cos(x) \n# Output: array([ 1.0000e+00, 7.0710e-01, 6.1232e-17, -7.0710e-01, -1.0000e+00])\n\nA = np.array([[1, 4, 9], [16, 25, 26], [49, 64, 81]])\nnp.sqrt(A) # Output: array([[1. , 2. , 3. ], [4. , 5. , 5.0990], [7. , 8. , 9. ]])\n","id":23,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"np.random.rand(5)  # 5 random uniform numbers between 0 and 1","id":24,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"np.random.standard_normal(10) ","id":25,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"import pandas as pd\nimport NumPy as np\n\n# Create a NumPy array\ndata = np.array([[1, 2, 3], [4, 5, 6]])\n\n# Create a DataFrame with column names\ndf = pd.DataFrame(data, columns=['A', 'B', 'C'])\ndf","id":26,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Create a DataFrame from a dictionary\ndata = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}\ndf = pd.DataFrame(data)\ndf","id":27,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df = pd.DataFrame({'Name': ['Alice', 'Bob'], 'Age': [25, 30]})\ndf.set_index('Name', inplace=True)  # Set 'Name' as the index\ndf","id":28,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df.reset_index(inplace=True)  # Reset the index\ndf","id":29,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df['Name']  # Access a single column","id":30,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df = pd.DataFrame({'Name': ['Alice', 'Bob'], 'Age': [25, 30]})\ndf.set_index('Name', inplace=True)  # Set 'Name' as the index\n\nprint(df.iloc[0])  # First row\nprint(df.loc['Bob'])  # row by index","id":31,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df['Pets'] = ['F', 'M']\ndf","id":32,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"print(df[df['Age'] > 25])  # Filter rows where 'Age' > 25","id":33,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Sample DataFrame\ndf = pd.DataFrame({\n    'Values': [10, 20, 30, 40, 50],\n    'Scores': [2.5, 3.6, 4.2, 3.8, 4.0]\n})\n\n# Summary statistics\ndf.describe()","id":34,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Count occurrences of each category\ndf['Values'].value_counts()","id":35,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Example DataFrame\ndata = {'A': [1, 2, 3], 'B': [4, 5, 6]}\ndf = pd.DataFrame(data)\n\n# Create a new column as a sum of A and B\ndf['C'] = df['A'] + df['B']\n\n# Create a new column as a product of A and B\ndf['D'] = df['A'] * df['B']\n\ndf","id":36,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Create a new column by applying a custom function\ndf['E'] = df.apply(lambda row: row['A'] ** 2 + row['B'], axis=1)\ndf","id":37,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Create a new column by applying a custom function\ncol_sums = df.apply(sum, axis=0)\ncol_sums","id":38,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"import NumPy as np\n\n# Create a new column as the square root of A\ndf['sqrt_A'] = np.sqrt(df['A'])\nprint(df)","id":39,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Create a new column based on conditions\ndf['Category'] = ['High' if x > 5 else 'Low' for x in df['B']]\ndf","id":40,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Sample DataFrame\ndata = {\n    'Category': ['A', 'A', 'B', 'B', 'C', 'C'],\n    'Values': [10, 20, 30, 40, 50, 60]\n  }\n\ndf = pd.DataFrame(data)\n\n# Group by 'Category' and find summary statistics\ndf.groupby('Category')['Values'].sum()","id":41,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"df.groupby('Category')['Values'].sd()","id":42,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"\nresult = df.groupby('Group')['Value'].agg(['sum', 'mean', 'max'])\nresult","id":43,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"result = df.groupby('Group')['Value'].agg(lambda x: x.max() - x.min())\nresult","id":44,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Cumulative sum within each group\ndf['Cumulative Sum'] = df.groupby('Group')['Value'].cumsum()\ndf","id":45,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Filter groups where the sum of values exceeds 50\nfiltered = df.groupby('Group').filter(lambda x: x['Value'].sum() > 50)\nfiltered","id":46,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# 75th percentile within each group\nquantiles = df.groupby('Group')['Value'].quantile(0.75)\nquantiles","id":47,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Multi-column aggregation\ndata = {'Group': ['A', 'A', 'B', 'B', 'C', 'C'],\n        'Value1': [10, 20, 30, 40, 50, 60],\n        'Value2': [5, 15, 25, 35, 45, 55]}\n\ndf = pd.DataFrame(data)\n\nresult = df.groupby('Group').agg({\n    'Value1': ['mean', 'sum'],\n    'Value2': 'max'}\n    )\n\nresult","id":48,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Sample DataFrames\ndf1 = pd.DataFrame({'ID': [1, 2], 'Name': ['Alice', 'Bob']})\ndf2 = pd.DataFrame({'ID': [3, 4], 'Name': ['Charlie', 'David']})\n\n# Concatenating along rows (default)\nresult = pd.concat([df1, df2])\nresult","id":49,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Concatenate along columns\nresult = pd.concat([df1, df2], axis=1)\nresult","id":50,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+
+
+</script>
+<script type="module">
+// Declare startupMessageqpyodide globally
+globalThis.qpyodideStartupMessage = document.createElement("p");
+
+// Function to set the button text
+globalThis.qpyodideSetInteractiveButtonState = function(buttonText, enableCodeButton = true) {
+  document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+    btn.innerHTML = buttonText;
+    btn.disabled = !enableCodeButton;
+  });
+}
+
+// Function to update the status message in non-interactive cells
+globalThis.qpyodideUpdateStatusMessage = function(message) {
+  document.querySelectorAll(".qpyodide-status-text.qpyodide-cell-needs-evaluation").forEach((elem) => {
+    elem.innerText = message;
+  });
+}
+
+// Function to update the status message
+globalThis.qpyodideUpdateStatusHeader = function(message) {
+
+  if (!qpyodideShowStartupMessage) return;
+
+  qpyodideStartupMessage.innerHTML = message;
+}
+
+// Status header update with customized spinner message
+globalThis.qpyodideUpdateStatusHeaderSpinner = function(message) {
+
+  qpyodideUpdateStatusHeader(`
+    <i class="fa-solid fa-spinner fa-spin qpyodide-icon-status-spinner"></i>
+    <span>${message}</span>
+  `);
+}
+
+
+// Function that attaches the document status message
+function qpyodideDisplayStartupMessage(showStartupMessage) {
+  if (!showStartupMessage) {
+    return;
+  }
+
+  // Get references to header elements
+  const headerHTML = document.getElementById("title-block-header");
+  const headerRevealJS = document.getElementById("title-slide");
+
+  // Create the outermost div element for metadata
+  const quartoTitleMeta = document.createElement("div");
+  quartoTitleMeta.classList.add("quarto-title-meta");
+
+  // Create the first inner div element
+  const firstInnerDiv = document.createElement("div");
+  firstInnerDiv.setAttribute("id", "qpyodide-status-message-area");
+
+  // Create the second inner div element for "Pyodide Status" heading and contents
+  const secondInnerDiv = document.createElement("div");
+  secondInnerDiv.setAttribute("id", "qpyodide-status-message-title");
+  secondInnerDiv.classList.add("quarto-title-meta-heading");
+  secondInnerDiv.innerText = "Pyodide Status";
+
+  // Create another inner div for contents
+  const secondInnerDivContents = document.createElement("div");
+  secondInnerDivContents.setAttribute("id", "qpyodide-status-message-body");
+  secondInnerDivContents.classList.add("quarto-title-meta-contents");
+
+  // Describe the Pyodide state
+  qpyodideStartupMessage.innerText = "🟡 Loading...";
+  qpyodideStartupMessage.setAttribute("id", "qpyodide-status-message-text");
+  // Add `aria-live` to auto-announce the startup status to screen readers
+  qpyodideStartupMessage.setAttribute("aria-live", "assertive");
+
+  // Append the startup message to the contents
+  secondInnerDivContents.appendChild(qpyodideStartupMessage);
+
+  // Combine the inner divs and contents
+  firstInnerDiv.appendChild(secondInnerDiv);
+  firstInnerDiv.appendChild(secondInnerDivContents);
+  quartoTitleMeta.appendChild(firstInnerDiv);
+
+  // Determine where to insert the quartoTitleMeta element
+  if (headerHTML || headerRevealJS) {
+    // Append to the existing "title-block-header" element or "title-slide" div
+    (headerHTML || headerRevealJS).appendChild(quartoTitleMeta);
+  } else {
+    // If neither headerHTML nor headerRevealJS is found, insert after "Pyodide-monaco-editor-init" script
+    const monacoScript = document.getElementById("qpyodide-monaco-editor-init");
+    const header = document.createElement("header");
+    header.setAttribute("id", "title-block-header");
+    header.appendChild(quartoTitleMeta);
+    monacoScript.after(header);
+  }
+}
+
+qpyodideDisplayStartupMessage(qpyodideShowStartupMessage);
+</script>
+<script type="module">
+// Create a logging setup
+globalThis.qpyodideMessageArray = []
+
+// Add messages to array
+globalThis.qpyodideAddToOutputArray = function(message, type) {
+  qpyodideMessageArray.push({ message, type });
+}
+
+// Function to reset the output array
+globalThis.qpyodideResetOutputArray = function() {
+  qpyodideMessageArray = [];
+}
+
+globalThis.qpyodideRetrieveOutput = function() {
+  return qpyodideMessageArray.map(entry => entry.message).join('\n');
+}
+
+// Start a timer
+const initializePyodideTimerStart = performance.now();
+
+// Encase with a dynamic import statement
+globalThis.qpyodideInstance = await import(
+  qpyodideCustomizedPyodideOptions.indexURL + "pyodide.mjs").then(
+   async({ loadPyodide }) => {
+
+    console.log("Start loading Pyodide");
+    
+    // Populate Pyodide options with defaults or new values based on `pyodide`` meta
+    let mainPyodide = await loadPyodide(
+      qpyodideCustomizedPyodideOptions
+    );
+    
+    // Setup a namespace for global scoping
+    // await loadedPyodide.runPythonAsync("globalScope = {}"); 
+    
+    // Update status to reflect the next stage of the procedure
+    qpyodideUpdateStatusHeaderSpinner("Initializing Python Packages");
+
+    // Load the `micropip` package to allow installation of packages.
+    await mainPyodide.loadPackage("micropip");
+    await mainPyodide.runPythonAsync(`import micropip`);
+
+    // Load the `pyodide_http` package to shim uses of `requests` and `urllib3`.
+    // This allows for `pd.read_csv(url)` to work flawlessly.
+    // Details: https://github.com/coatless-quarto/pyodide/issues/9
+    await mainPyodide.loadPackage("pyodide_http");
+    await mainPyodide.runPythonAsync(`
+    import pyodide_http
+    pyodide_http.patch_all()  # Patch all libraries
+    `);
+
+    // Load the `matplotlib` package with necessary environment hook
+    await mainPyodide.loadPackage("matplotlib");
+
+    // Set the backend for matplotlib to be interactive.
+    await mainPyodide.runPythonAsync(`
+    import matplotlib
+    matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
+    from matplotlib import pyplot as plt
+    `);
+
+    // Unlock interactive buttons
+    qpyodideSetInteractiveButtonState(
+      `<i class="fa-solid fa-play qpyodide-icon-run-code"></i> <span>Run Code</span>`, 
+      true
+    );
+
+    // Set document status to viable
+    qpyodideUpdateStatusHeader(
+      "🟢 Ready!"
+    );
+
+    // Assign Pyodide into the global environment
+    globalThis.mainPyodide = mainPyodide;
+
+    console.log("Completed loading Pyodide");
+    return mainPyodide;
+  }
+);
+
+// Stop timer
+const initializePyodideTimerEnd = performance.now();
+
+// Create a function to retrieve the promise object.
+globalThis._qpyodideGetInstance = function() {
+    return qpyodideInstance;
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#lists-tuples-and-dictionaries" id="toc-lists-tuples-and-dictionaries" class="nav-link active" data-scroll-target="#lists-tuples-and-dictionaries">1. Lists, Tuples, and Dictionaries</a>
+  <ul class="collapse">
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">1.1 Lists</a></li>
+  <li><a href="#tuples" id="toc-tuples" class="nav-link" data-scroll-target="#tuples">1.2 Tuples</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries">1.3 Dictionaries</a></li>
+  </ul></li>
+  <li><a href="#numpys-arrays" id="toc-numpys-arrays" class="nav-link" data-scroll-target="#numpys-arrays">2. <code>NumPy</code>’s arrays</a>
+  <ul class="collapse">
+  <li><a href="#numpy-data-structures" id="toc-numpy-data-structures" class="nav-link" data-scroll-target="#numpy-data-structures">2.1 NumPy data structures</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-vector-from-a-list-of-numbers" id="toc-creating-a-vector-from-a-list-of-numbers" class="nav-link" data-scroll-target="#creating-a-vector-from-a-list-of-numbers">2.1.1 Creating a vector from a list of numbers</a></li>
+  <li><a href="#creating-a-vector-with-constant-spacing" id="toc-creating-a-vector-with-constant-spacing" class="nav-link" data-scroll-target="#creating-a-vector-with-constant-spacing">2.1.2 Creating a vector with constant spacing</a></li>
+  <li><a href="#generating-sequences-with-linspace-and-logspace" id="toc-generating-sequences-with-linspace-and-logspace" class="nav-link" data-scroll-target="#generating-sequences-with-linspace-and-logspace">2.1.3 Generating Sequences with linspace and logspace</a></li>
+  <li><a href="#creating-a-matrix" id="toc-creating-a-matrix" class="nav-link" data-scroll-target="#creating-a-matrix">2.1.3 Creating a matrix</a></li>
+  </ul></li>
+  <li><a href="#indexing-numpy-arrays" id="toc-indexing-numpy-arrays" class="nav-link" data-scroll-target="#indexing-numpy-arrays">2.2 Indexing NumPy arrays</a>
+  <ul class="collapse">
+  <li><a href="#accessing-elements-of-a-vector" id="toc-accessing-elements-of-a-vector" class="nav-link" data-scroll-target="#accessing-elements-of-a-vector">2.2.1 Accessing elements of a vector</a></li>
+  <li><a href="#accessing-elements-of-a-matrix" id="toc-accessing-elements-of-a-matrix" class="nav-link" data-scroll-target="#accessing-elements-of-a-matrix">2.2.2 Accessing elements of a matrix</a></li>
+  <li><a href="#accessing-multiple-elements-at-once" id="toc-accessing-multiple-elements-at-once" class="nav-link" data-scroll-target="#accessing-multiple-elements-at-once">2.2.3 Accessing multiple elements at once</a></li>
+  </ul></li>
+  <li><a href="#manipulating-arrays" id="toc-manipulating-arrays" class="nav-link" data-scroll-target="#manipulating-arrays">2.3 Manipulating arrays</a>
+  <ul class="collapse">
+  <li><a href="#adding-elements-to-an-array" id="toc-adding-elements-to-an-array" class="nav-link" data-scroll-target="#adding-elements-to-an-array">2.3.1 Adding elements to an array</a></li>
+  <li><a href="#deleting-elements-from-an-array" id="toc-deleting-elements-from-an-array" class="nav-link" data-scroll-target="#deleting-elements-from-an-array">2.3.2 Deleting elements from an array</a></li>
+  </ul></li>
+  <li><a href="#element-wise-operations" id="toc-element-wise-operations" class="nav-link" data-scroll-target="#element-wise-operations">2.4 Element-wise operations</a>
+  <ul class="collapse">
+  <li><a href="#adding-and-subtracting-arrays" id="toc-adding-and-subtracting-arrays" class="nav-link" data-scroll-target="#adding-and-subtracting-arrays">2.4.1 Adding and subtracting arrays</a></li>
+  <li><a href="#using-numpy-functions-with-arrays" id="toc-using-numpy-functions-with-arrays" class="nav-link" data-scroll-target="#using-numpy-functions-with-arrays">2.4.2 Using NumPy functions with arrays</a></li>
+  </ul></li>
+  <li><a href="#other-numpy-features" id="toc-other-numpy-features" class="nav-link" data-scroll-target="#other-numpy-features">2.5 Other NumPy features</a></li>
+  </ul></li>
+  <li><a href="#pandas-dataframes" id="toc-pandas-dataframes" class="nav-link" data-scroll-target="#pandas-dataframes">3. <code>Pandas</code> dataframes</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-dataframe" id="toc-creating-a-dataframe" class="nav-link" data-scroll-target="#creating-a-dataframe">3.1 Creating a <code>DataFrame</code></a></li>
+  <li><a href="#understanding-indices-in-dataframes" id="toc-understanding-indices-in-dataframes" class="nav-link" data-scroll-target="#understanding-indices-in-dataframes">3.2 Understanding indices in dataframes</a></li>
+  <li><a href="#dataframe-basics" id="toc-dataframe-basics" class="nav-link" data-scroll-target="#dataframe-basics">3.3 DataFrame basics</a></li>
+  <li><a href="#summary-statistics-for-dataframes" id="toc-summary-statistics-for-dataframes" class="nav-link" data-scroll-target="#summary-statistics-for-dataframes">3.4 Summary statistics for dataframes</a>
+  <ul class="collapse">
+  <li><a href="#value_counts" id="toc-value_counts" class="nav-link" data-scroll-target="#value_counts">3.4.2 <code>value_counts</code></a></li>
+  </ul></li>
+  <li><a href="#creating-new-variables" id="toc-creating-new-variables" class="nav-link" data-scroll-target="#creating-new-variables">3.5 Creating new variables</a>
+  <ul class="collapse">
+  <li><a href="#basic-transformations-using-operators" id="toc-basic-transformations-using-operators" class="nav-link" data-scroll-target="#basic-transformations-using-operators">3.5.1. Basic transformations using operators</a></li>
+  <li><a href="#using-apply-for-custom-transformations" id="toc-using-apply-for-custom-transformations" class="nav-link" data-scroll-target="#using-apply-for-custom-transformations">3.5.2 Using <code>apply()</code> for custom transformations</a></li>
+  <li><a href="#using-vectorized-functions" id="toc-using-vectorized-functions" class="nav-link" data-scroll-target="#using-vectorized-functions">3.5.3 Using Vectorized Functions</a></li>
+  <li><a href="#using-conditions-to-create-new-columns" id="toc-using-conditions-to-create-new-columns" class="nav-link" data-scroll-target="#using-conditions-to-create-new-columns">3.5.4 Using conditions to create new columns</a></li>
+  </ul></li>
+  <li><a href="#grouping-across-values-of-a-variable-use-of-groupby" id="toc-grouping-across-values-of-a-variable-use-of-groupby" class="nav-link" data-scroll-target="#grouping-across-values-of-a-variable-use-of-groupby">3.6 Grouping across values of a variable: use of <code>groupby</code></a></li>
+  <li><a href="#use-of-concat" id="toc-use-of-concat" class="nav-link" data-scroll-target="#use-of-concat">3.7 Use of <code>concat</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/loader.js"></script>
+<script type="module" id="qpyodide-monaco-editor-init">
+
+  // Configure the Monaco Editor's loader
+  require.config({
+    paths: {
+      'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs'
+    }
+  });
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data structures in <code>Python</code></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Juan D. Montoro-Pons </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="Source">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Source
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<section id="lists-tuples-and-dictionaries" class="level1">
+<h1>1. Lists, Tuples, and Dictionaries</h1>
+<section id="lists" class="level2">
+<h2 class="anchored" data-anchor-id="lists">1.1 Lists</h2>
+<p>Lists are defined as a set of individual elements, separated by commas, between two brackets. For example:</p>
+<div id="qpyodide-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>We can access individual elements of the list using the variable name in which the list is stored followed by an integer (between 0 and the number of elements - 1) written in brackets.</p>
+<div id="qpyodide-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The first element of <code>b</code> is <code>b[0]</code>, the second is <code>b[1]</code>, the third is <code>b[2]</code>, and so on. In some programming languages like C and Python, list and array indices start at 0, while in others they start at 1 (like MATLAB, R, or FORTRAN).</p>
+<p>Lists are mutable data structures. We can change individual elements of the list:</p>
+<div id="qpyodide-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Lists can also be concatenated using <code>+</code>:</p>
+<div id="qpyodide-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Or elements can be appended using the <code>append</code> method:</p>
+<div id="qpyodide-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="tuples" class="level2">
+<h2 class="anchored" data-anchor-id="tuples">1.2 Tuples</h2>
+<p>Tuples in Python are immutable (meaning their elements cannot be modified once defined) ordered collections of elements. They are similar to lists but have some key differences due to their immutability, which makes them particularly useful in specific scenarios. Tuples are created similarly to lists, but with parentheses instead of brackets.</p>
+<div id="qpyodide-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Tuples are ideal for storing data that should remain constant throughout the program. For example, storing coordinates or days of the week (things that should not change).</p>
+<p>Tuples allow for unpacking multiple values into variables easily, making simultaneaous assignments in just one line of code. The example below assigns each element of a tuple by unpacking it to three newly defined variables <code>x</code>, <code>y</code> and <code>z</code>:</p>
+<div id="qpyodide-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Key Uses of Tuples 1. Data That Should Not Change 2. Function Returns: tuples are often used to return multiple values from a function. 3. Keys in Dictionaries (ssee below) 4. Unpacking (tuples allow for unpacking multiple values into variables easily).</p>
+<p>The main advantages of using tuples over lists is that tuples are generally faster than lists due to their immutability and simpler internal structure, consume less memory, making them suitable for large collections of constant data and allow for safe iterations (tuples prevent accidental overwriting during iteration or function calls).</p>
+</section>
+<section id="dictionaries" class="level2">
+<h2 class="anchored" data-anchor-id="dictionaries">1.3 Dictionaries</h2>
+<p>A dictionary in Python is a mutable, unordered collection that maps keys to values. It is one of the most widely used data structures due to its efficiency and versatility.</p>
+<p>Dictionaries allow for key-value pair storage. This makes them appropriate for fast lookups, that is, efficiently retrieve data by keys, making dictionaries ideal for implementing look-up tables or caches.</p>
+<div id="qpyodide-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Dictionaries can be modified in place, making them suitable for dynamic datasets. Furtermore built-in methods such as <code>.get()</code>, <code>.keys()</code>, <code>.values()</code>, and <code>.items()</code> provide convenient ways to access, manipulate, or iterate through the dictionary.</p>
+<div id="qpyodide-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Comparison of basic data structures</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 28%">
+<col style="width: 26%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Feature</strong></th>
+<th><strong>Dictionary</strong></th>
+<th><strong>List</strong></th>
+<th><strong>Tuple</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Key-Value Storage</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td>Look-Up Time</td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr class="odd">
+<td>Mutability</td>
+<td>Mutable</td>
+<td>Mutable</td>
+<td>Immutable</td>
+</tr>
+<tr class="even">
+<td>Order Preservation</td>
+<td>Preserves since Python 3.7+</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>Ideal Use Case</td>
+<td>Mappings</td>
+<td>Sequential data</td>
+<td>Fixed collections</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="numpys-arrays" class="level1">
+<h1>2. <code>NumPy</code>’s arrays</h1>
+<p>NumPy (short for Numerical Python) is a fundamental library for scientific computing in Python. It provides support for creating and manipulating large, multi-dimensional arrays and matrices, along with a comprehensive collection of mathematical functions to operate on these data structures.</p>
+<p>NumPy offers a core data structure ndarray (N-dimensional array) implemented in C. This implementation is key to NumPy’s performance and efficiency.</p>
+<section id="numpy-data-structures" class="level2">
+<h2 class="anchored" data-anchor-id="numpy-data-structures">2.1 NumPy data structures</h2>
+<section id="creating-a-vector-from-a-list-of-numbers" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-vector-from-a-list-of-numbers">2.1.1 Creating a vector from a list of numbers</h3>
+<p>Using the <code>np.array()</code> function, we can convert a list of numbers into a NumPy array, enabling us to perform numerical operations efficiently.</p>
+<div id="qpyodide-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Here, the date array stores a sequence of integers representing years. NumPy arrays are more efficient than Python lists for numerical computations.</p>
+</section>
+<section id="creating-a-vector-with-constant-spacing" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-vector-with-constant-spacing">2.1.2 Creating a vector with constant spacing</h3>
+<p>The <code>np.arange()</code> function generates sequences of numbers with specified starting, stopping, and stepping values, making it convenient for evenly spaced values.</p>
+<div id="qpyodide-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>This functionality is particularly useful in numerical simulations, where you may need to define ranges of values to iterate over.</p>
+</section>
+<section id="generating-sequences-with-linspace-and-logspace" class="level3">
+<h3 class="anchored" data-anchor-id="generating-sequences-with-linspace-and-logspace">2.1.3 Generating Sequences with linspace and logspace</h3>
+<p>NumPy provides additional functions to generate sequences of numbers, which are particularly useful for scientific computations. <code>np.linspace()</code></p>
+<p>The <code>np.linspace()</code> function generates evenly spaced numbers over a specified range. Unlike <code>np.arange()</code>, it specifies the number of points rather than the step size.</p>
+<div id="qpyodide-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>This is particularly handy for plotting functions or when you need a predefined number of points between two bounds.</p>
+<p>The <code>np.logspace()</code> function generates numbers evenly spaced on a logarithmic scale. You define the start and stop powers of 10, and NumPy generates values between 10start10start and 10stop10stop.</p>
+<div id="qpyodide-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>This function is widely used in scientific contexts, for example, when analyzing data that spans several orders of magnitude.</p>
+</section>
+<section id="creating-a-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-matrix">2.1.3 Creating a matrix</h3>
+<p>NumPy arrays extend naturally to two or more dimensions, which makes them ideal for creating and manipulating matrices.</p>
+<div id="qpyodide-insertion-location-14"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Beyond manually specifying matrices, NumPy offers utility functions for creating arrays with specific patterns:</p>
+<pre><code>- Zeros Matrix: np.zeros([i, i]) creates a ixj matrix filled with zeros.
+- Ones Matrix: np.ones([i, j]) creates a ixj matrix filled with ones.
+- Identity Matrix: np.eye(i) creates a ixi identity matrix.</code></pre>
+<p>These are highly efficient for initializing arrays in numerical models.</p>
+<div id="qpyodide-insertion-location-15"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>To check the dimensions of any array, use the <code>.shape</code> attribute:</p>
+<div id="qpyodide-insertion-location-16"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="indexing-numpy-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="indexing-numpy-arrays">2.2 Indexing NumPy arrays</h2>
+<p>NumPy arrays support advanced indexing techniques, enabling efficient access and modification of data.</p>
+<section id="accessing-elements-of-a-vector" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-elements-of-a-vector">2.2.1 Accessing elements of a vector</h3>
+<p>Access specific elements using their indices (zero-based). You can also modify elements by assigning new values.</p>
+<div id="qpyodide-insertion-location-17"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="accessing-elements-of-a-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-elements-of-a-matrix">2.2.2 Accessing elements of a matrix</h3>
+<p>For matrices, specify row and column indices to access or modify elements.</p>
+<div id="qpyodide-insertion-location-18"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="accessing-multiple-elements-at-once" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-multiple-elements-at-once">2.2.3 Accessing multiple elements at once</h3>
+<p>NumPy supports fancy indexing, allowing you to access multiple elements simultaneously.</p>
+<div id="qpyodide-insertion-location-19"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>You can use a list or an array of indices to specify the elements.</p>
+</section>
+</section>
+<section id="manipulating-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="manipulating-arrays">2.3 Manipulating arrays</h2>
+<section id="adding-elements-to-an-array" class="level3">
+<h3 class="anchored" data-anchor-id="adding-elements-to-an-array">2.3.1 Adding elements to an array</h3>
+<p>The <code>np.append()</code> and <code>np.insert()</code> functions allow you to add elements to arrays, extending their size dynamically.</p>
+<div id="qpyodide-insertion-location-20"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="deleting-elements-from-an-array" class="level3">
+<h3 class="anchored" data-anchor-id="deleting-elements-from-an-array">2.3.2 Deleting elements from an array</h3>
+<p>The <code>np.delete()</code> function removes elements by index.</p>
+<div id="qpyodide-insertion-location-21"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="element-wise-operations" class="level2">
+<h2 class="anchored" data-anchor-id="element-wise-operations">2.4 Element-wise operations</h2>
+<section id="adding-and-subtracting-arrays" class="level3">
+<h3 class="anchored" data-anchor-id="adding-and-subtracting-arrays">2.4.1 Adding and subtracting arrays</h3>
+<p>Arrays of the same shape can be added or subtracted element-wise.</p>
+<div id="qpyodide-insertion-location-22"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="using-numpy-functions-with-arrays" class="level3">
+<h3 class="anchored" data-anchor-id="using-numpy-functions-with-arrays">2.4.2 Using NumPy functions with arrays</h3>
+<p>NumPy provides a rich library of functions to apply element-wise operations. For instance:</p>
+<div id="qpyodide-insertion-location-23"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="other-numpy-features" class="level2">
+<h2 class="anchored" data-anchor-id="other-numpy-features">2.5 Other NumPy features</h2>
+<p>NumPy’s random module allows you to generate random numbers for simulations or statistical analysis.</p>
+<p>To generate random draws of a uniform distribution in the support [0,1]:</p>
+<div id="qpyodide-insertion-location-24"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Here we generate 10 draws from a standard normal distribution:</p>
+<div id="qpyodide-insertion-location-25"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>We can generate draws from any normal distribution:</p>
+<pre class="{pyodide}"><code>np.random.normal(loc=10,scale=3,size=10)</code></pre>
+</section>
+</section>
+<section id="pandas-dataframes" class="level1">
+<h1>3. <code>Pandas</code> dataframes</h1>
+<p>Pandas is a powerful <code>Python</code> library for data manipulation and analysis. It provides two primary data structures:</p>
+<ol type="1">
+<li><strong>Series</strong>: A one-dimensional labeled array (like a list with labels).</li>
+<li><strong>DataFrame</strong>: A two-dimensional labeled data structure (like a table with rows and columns).</li>
+</ol>
+<p>Pandas is widely used in data science and machine learning due to its flexibility and ease of use for handling tabular data.</p>
+<section id="creating-a-dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-dataframe">3.1 Creating a <code>DataFrame</code></h2>
+<p>You can create a DataFrame from a NumPy array and specify the column names.</p>
+<div id="qpyodide-insertion-location-26"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>You can create a DataFrame by passing a dictionary where keys represent column names and values are lists of data.</p>
+<div id="qpyodide-insertion-location-27"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="understanding-indices-in-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-indices-in-dataframes">3.2 Understanding indices in dataframes</h2>
+<p>The index in a DataFrame identifies the rows uniquely, similar to row labels. By default, Pandas assigns integer indices starting from 0, but you can customize it.</p>
+<p>You can set an existing column as the index.</p>
+<div id="qpyodide-insertion-location-28"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>If you want to move the index back into a column and restore the default integer index:</p>
+<div id="qpyodide-insertion-location-29"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="dataframe-basics" class="level2">
+<h2 class="anchored" data-anchor-id="dataframe-basics">3.3 DataFrame basics</h2>
+<p>Accessing columns:</p>
+<div id="qpyodide-insertion-location-30"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>To access rows one can use <code>.iloc[]</code> for integer-based indexing or <code>.loc[]</code> for label-based indexing:</p>
+<div id="qpyodide-insertion-location-31"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>We can always add new columns to the dataframe:</p>
+<div id="qpyodide-insertion-location-32"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>To filter rows we can use logical conditions:</p>
+<div id="qpyodide-insertion-location-33"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="summary-statistics-for-dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics-for-dataframes">3.4 Summary statistics for dataframes</h2>
+<section id="describe" class="level4">
+<h4 class="anchored" data-anchor-id="describe">3.4.1 <code>describe</code></h4>
+<p>The <code>describe</code> method provides a quick overview of summary statistics for numerical or categorical columns.</p>
+<div id="qpyodide-insertion-location-34"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="value_counts" class="level3">
+<h3 class="anchored" data-anchor-id="value_counts">3.4.2 <code>value_counts</code></h3>
+<p>This method counts the unique values in a Series or a column of a DataFrame.</p>
+<div id="qpyodide-insertion-location-35"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="creating-new-variables" class="level2">
+<h2 class="anchored" data-anchor-id="creating-new-variables">3.5 Creating new variables</h2>
+<p>To create a new column in a Pandas DataFrame as a transformation of one or more existing columns, you can use basic operations, apply functions, or work with vectorized operations for efficiency. Below are a few common examples:</p>
+<section id="basic-transformations-using-operators" class="level3">
+<h3 class="anchored" data-anchor-id="basic-transformations-using-operators">3.5.1. Basic transformations using operators</h3>
+<p>You can directly apply mathematical operations or transformations on existing columns.</p>
+<div id="qpyodide-insertion-location-36"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="using-apply-for-custom-transformations" class="level3">
+<h3 class="anchored" data-anchor-id="using-apply-for-custom-transformations">3.5.2 Using <code>apply()</code> for custom transformations</h3>
+<p>Use the <code>.apply()</code> method to apply a custom function to rows or columns.</p>
+<div id="qpyodide-insertion-location-37"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Here, <code>axis=1</code> indicates that the function should be applied row-wise.</p>
+<p>When using apply() with axis=0, the function is applied column-wise (i.e., to each column individually). This is useful when you want to perform a calculation or transformation on each column in the DataFrame.</p>
+<div id="qpyodide-insertion-location-38"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="using-vectorized-functions" class="level3">
+<h3 class="anchored" data-anchor-id="using-vectorized-functions">3.5.3 Using Vectorized Functions</h3>
+<p>Use vectorized operations for performance, which are faster than <code>.apply()</code>.</p>
+<div id="qpyodide-insertion-location-39"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="using-conditions-to-create-new-columns" class="level3">
+<h3 class="anchored" data-anchor-id="using-conditions-to-create-new-columns">3.5.4 Using conditions to create new columns</h3>
+<p>You can create a new column based on conditions.</p>
+<div id="qpyodide-insertion-location-40"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+<section id="grouping-across-values-of-a-variable-use-of-groupby" class="level2">
+<h2 class="anchored" data-anchor-id="grouping-across-values-of-a-variable-use-of-groupby">3.6 Grouping across values of a variable: use of <code>groupby</code></h2>
+<p><code>groupby</code> is a powerful method in pandas for performing split-apply-combine operations. It groups data based on specified keys and allows you to apply aggregation functions to each group.</p>
+<div id="qpyodide-insertion-location-41"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Note that after applying <code>groupby</code> in pandas, you can use a wide range of summary (aggregation) functions to compute statistics for each group. Here are some commonly used summary statistics.</p>
+<p><strong>Basic Aggregation Functions</strong>: these functions compute basic statistics for each group.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.sum()</code></td>
+<td>Sum of values in each group</td>
+</tr>
+<tr class="even">
+<td><code>.mean()</code></td>
+<td>Mean of values in each group</td>
+</tr>
+<tr class="odd">
+<td><code>.median()</code></td>
+<td>Median of values in each group</td>
+</tr>
+<tr class="even">
+<td><code>.std()</code></td>
+<td>Standard deviation of each group</td>
+</tr>
+<tr class="odd">
+<td><code>.var()</code></td>
+<td>Variance of each group</td>
+</tr>
+<tr class="even">
+<td><code>.min()</code></td>
+<td>Minimum value in each group</td>
+</tr>
+<tr class="odd">
+<td><code>.max()</code></td>
+<td>Maximum value in each group</td>
+</tr>
+<tr class="even">
+<td><code>.count()</code></td>
+<td>Number of non-null values in each group</td>
+</tr>
+<tr class="odd">
+<td><code>.size()</code></td>
+<td>Total number of entries in each group</td>
+</tr>
+</tbody>
+</table>
+<div id="qpyodide-insertion-location-42"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>It is always possible to use <code>.agg()</code> to apply multiple functions or custom functions to a grouped object.</p>
+<div id="qpyodide-insertion-location-43"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>You can also use custom lambda (anonymous) functions:</p>
+<div id="qpyodide-insertion-location-44"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>It is also possible to apply <strong>Transformation Functions</strong>, which return values aligned with the original DataFrame instead of reducing them.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.transform()</code></td>
+<td>Transform values by applying a function to each group</td>
+</tr>
+<tr class="even">
+<td><code>.cumsum()</code></td>
+<td>Cumulative sum within each group</td>
+</tr>
+<tr class="odd">
+<td><code>.cummax()</code></td>
+<td>Cumulative maximum within each group</td>
+</tr>
+<tr class="even">
+<td><code>.rank()</code></td>
+<td>Rank elements within each group</td>
+</tr>
+</tbody>
+</table>
+<div id="qpyodide-insertion-location-45"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Filtering and Boolean Aggregation</strong> functions help filter groups or compute Boolean aggregates.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>.filter()</code></td>
+<td>Filters groups based on a condition</td>
+</tr>
+<tr class="even">
+<td><code>.any()</code></td>
+<td>Checks if any value in the group satisfies a condition</td>
+</tr>
+<tr class="odd">
+<td><code>.all()</code></td>
+<td>Checks if all values in the group satisfy a condition</td>
+</tr>
+</tbody>
+</table>
+<div id="qpyodide-insertion-location-46"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Finally, for more advanced analysis, you can compute statistical properties: | <strong>Function</strong> | <strong>Description</strong> | |—————-|———————————————————| | <code>.quantile()</code> | Computes quantile values (e.g., <code>.quantile(0.75)</code>) | | <code>.skew()</code> | Measures skewness of distribution within each group | | <code>.mad()</code> | Mean absolute deviation | | <code>.corr()</code> | Pairwise correlation of columns within groups | | <code>.cov()</code> | Pairwise covariance of columns within groups |</p>
+<div id="qpyodide-insertion-location-47"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>It is also possible to combine the use of <code>.agg()</code> with a dictionary to compute multiple statistics for different columns.</p>
+<div id="qpyodide-insertion-location-48"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="use-of-concat" class="level2">
+<h2 class="anchored" data-anchor-id="use-of-concat">3.7 Use of <code>concat</code></h2>
+<p>The <code>concat</code> function is used to concatenate two or more pandas objects (like DataFrames or Series) along a specified axis (rows or columns).</p>
+<p>Concatenating along rows:</p>
+<div id="qpyodide-insertion-location-49"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Concatenating along columns:</p>
+<div id="qpyodide-insertion-location-50"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script type="module">
+/**
+ * Factory function to create different types of cells based on options.
+ * @param {Object} cellData - JSON object containing code, id, and options.
+ * @returns {BaseCell} Instance of the appropriate cell class.
+ */
+globalThis.qpyodideCreateCell = function(cellData) {
+    switch (cellData.options.context) {
+        case 'interactive':
+            return new InteractiveCell(cellData);
+        case 'output':
+            return new OutputCell(cellData);
+        case 'setup':
+            return new SetupCell(cellData);
+        default:
+            return new InteractiveCell(cellData);
+            // throw new Error('Invalid cell type specified in options.');
+    }
+}  
+
+/**
+ * CellContainer class for managing a collection of cells.
+ * @class
+ */
+class CellContainer {
+    /**
+     * Constructor for CellContainer.
+     * Initializes an empty array to store cells.
+     * @constructor
+     */
+    constructor() {
+        this.cells = [];
+    }
+
+    /**
+     * Add a cell to the container.
+     * @param {BaseCell} cell - Instance of a cell (BaseCell or its subclasses).
+     */
+    addCell(cell) {
+        this.cells.push(cell);
+    }
+
+    /**
+     * Execute all cells in the container.
+     */
+    async executeAllCells() {
+        for (const cell of this.cells) {
+            await cell.executeCode();
+        }
+    }
+
+    /**
+     * Execute all cells in the container.
+     */
+    async autoRunExecuteAllCells() {
+        for (const cell of this.cells) {
+            await cell.autoRunExecuteCode();
+        }
+    }
+}
+  
+
+/**
+ * BaseCell class for handling code execution using Pyodide.
+ * @class
+ */
+class BaseCell {
+    /**
+     * Constructor for BaseCell.
+     * @constructor
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     */
+    constructor(cellData) {
+        this.code = cellData.code;
+        this.id = cellData.id;
+        this.options = cellData.options;
+        this.insertionLocation = document.getElementById(`qpyodide-insertion-location-${this.id}`);
+        this.executionLock = false;
+    }
+
+    cellOptions() {
+        // Subclass this? 
+        console.log(this.options);
+        return this.options;
+    }
+
+    /**
+     * Execute the Python code using Pyodide.
+     * @returns {*} Result of the code execution.
+     */
+    async executeCode() {
+        // Execute code using Pyodide
+        const result = getPyodide().runPython(this.code);
+        return result;
+    }
+};
+
+/**
+ * InteractiveCell class for creating editable code editor with Monaco Editor.
+ * @class
+ * @extends BaseCell
+ */
+class InteractiveCell extends BaseCell {
+
+    /**
+     * Constructor for InteractiveCell.
+     * @constructor
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     */
+    constructor(cellData) {
+        super(cellData);
+        this.editor = null;
+        this.setupElement();
+        this.setupMonacoEditor();
+    }
+
+    /**
+     * Set up the interactive cell elements
+     */
+    setupElement() {
+
+        // Create main div element
+        var mainDiv = document.createElement('div');
+        mainDiv.id = `qpyodide-interactive-area-${this.id}`;
+        mainDiv.className = `qpyodide-interactive-area`;
+        if (this.options.classes) {
+            mainDiv.className += " " + this.options.classes
+        }
+
+        // Add a unique cell identifier that users can customize
+        if (this.options.label) {
+            mainDiv.setAttribute('data-id', this.options.label);
+        }
+
+        // Create toolbar div
+        var toolbarDiv = document.createElement('div');
+        toolbarDiv.className = 'qpyodide-editor-toolbar';
+        toolbarDiv.id = `qpyodide-editor-toolbar-${this.id}`;
+
+        // Create a div to hold the left buttons
+        var leftButtonsDiv = document.createElement('div');
+        leftButtonsDiv.className = 'qpyodide-editor-toolbar-left-buttons';
+
+        // Create a div to hold the right buttons
+        var rightButtonsDiv = document.createElement('div');
+        rightButtonsDiv.className = 'qpyodide-editor-toolbar-right-buttons';
+
+        // Create Run Code button
+        var runCodeButton = document.createElement('button');
+        runCodeButton.className = 'btn btn-default qpyodide-button qpyodide-button-run';
+        runCodeButton.disabled = true;
+        runCodeButton.type = 'button';
+        runCodeButton.id = `qpyodide-button-run-${this.id}`;
+        runCodeButton.textContent = '🟡 Loading Pyodide...';
+        runCodeButton.title = `Run code (Shift + Enter)`;
+
+        // Append buttons to the leftButtonsDiv
+        leftButtonsDiv.appendChild(runCodeButton);
+
+        // Create Reset button
+        var resetButton = document.createElement('button');
+        resetButton.className = 'btn btn-light btn-xs qpyodide-button qpyodide-button-reset';
+        resetButton.type = 'button';
+        resetButton.id = `qpyodide-button-reset-${this.id}`;
+        resetButton.title = 'Start over';
+        resetButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+
+        // Create Copy button
+        var copyButton = document.createElement('button');
+        copyButton.className = 'btn btn-light btn-xs qpyodide-button qpyodide-button-copy';
+        copyButton.type = 'button';
+        copyButton.id = `qpyodide-button-copy-${this.id}`;
+        copyButton.title = 'Copy code';
+        copyButton.innerHTML = '<i class="fa-regular fa-copy"></i>';
+
+        // Append buttons to the rightButtonsDiv
+        rightButtonsDiv.appendChild(resetButton);
+        rightButtonsDiv.appendChild(copyButton);
+
+        // Create console area div
+        var consoleAreaDiv = document.createElement('div');
+        consoleAreaDiv.id = `qpyodide-console-area-${this.id}`;
+        consoleAreaDiv.className = 'qpyodide-console-area';
+
+        // Create editor div
+        var editorDiv = document.createElement('div');
+        editorDiv.id = `qpyodide-editor-${this.id}`;
+        editorDiv.className = 'qpyodide-editor';
+
+        // Create output code area div
+        var outputCodeAreaDiv = document.createElement('div');
+        outputCodeAreaDiv.id = `qpyodide-output-code-area-${this.id}`;
+        outputCodeAreaDiv.className = 'qpyodide-output-code-area';
+        outputCodeAreaDiv.setAttribute('aria-live', 'assertive');
+
+        // Create pre element inside output code area
+        var preElement = document.createElement('pre');
+        preElement.style.visibility = 'hidden';
+        outputCodeAreaDiv.appendChild(preElement);
+
+        // Create output graph area div
+        var outputGraphAreaDiv = document.createElement('div');
+        outputGraphAreaDiv.id = `qpyodide-output-graph-area-${this.id}`;
+        outputGraphAreaDiv.className = 'qpyodide-output-graph-area';
+
+        // Append buttons to the toolbar
+        toolbarDiv.appendChild(leftButtonsDiv);
+        toolbarDiv.appendChild(rightButtonsDiv);
+
+        // Append all elements to the main div
+        mainDiv.appendChild(toolbarDiv);
+        consoleAreaDiv.appendChild(editorDiv);
+        consoleAreaDiv.appendChild(outputCodeAreaDiv);
+        mainDiv.appendChild(consoleAreaDiv);
+        mainDiv.appendChild(outputGraphAreaDiv);
+
+        // Insert the dynamically generated object at the document location.
+        this.insertionLocation.appendChild(mainDiv);
+    }
+
+    /**
+     * Set up Monaco Editor for code editing.
+     */
+    setupMonacoEditor() {
+
+        // Retrieve the previously created document elements
+        this.runButton = document.getElementById(`qpyodide-button-run-${this.id}`);
+        this.resetButton = document.getElementById(`qpyodide-button-reset-${this.id}`);
+        this.copyButton = document.getElementById(`qpyodide-button-copy-${this.id}`);
+        this.editorDiv = document.getElementById(`qpyodide-editor-${this.id}`);
+        this.outputCodeDiv = document.getElementById(`qpyodide-output-code-area-${this.id}`);
+        this.outputGraphDiv = document.getElementById(`qpyodide-output-graph-area-${this.id}`);
+        
+        // Store reference to the object
+        var thiz = this;
+
+        // Load the Monaco Editor and create an instance
+        require(['vs/editor/editor.main'], function () {
+            thiz.editor = monaco.editor.create(
+                thiz.editorDiv, {
+                    value: thiz.code,
+                    language: 'python',
+                    theme: 'vs-light',
+                    automaticLayout: true,           // Works wonderfully with RevealJS
+                    scrollBeyondLastLine: false,
+                    minimap: {
+                        enabled: false
+                    },
+                    fontSize: '17.5pt',              // Bootstrap is 1 rem
+                    renderLineHighlight: "none",     // Disable current line highlighting
+                    hideCursorInOverviewRuler: true,  // Remove cursor indictor in right hand side scroll bar
+                    readOnly: thiz.options['read-only'] ?? false
+                }
+            );
+        
+            // Store the official counter ID to be used in keyboard shortcuts
+            thiz.editor.__qpyodideCounter = thiz.id;
+        
+            // Store the official div container ID
+            thiz.editor.__qpyodideEditorId = `qpyodide-editor-${thiz.id}`;
+        
+            // Store the initial code value and options
+            thiz.editor.__qpyodideinitialCode = thiz.code;
+            thiz.editor.__qpyodideOptions = thiz.options;
+        
+            // Set at the model level the preferred end of line (EOL) character to LF.
+            // This prevent `\r\n` from being given to the Pyodide engine if the user is on Windows.
+            // See details in: https://github.com/coatless/quarto-Pyodide/issues/94
+            // Associated error text: 
+            // Error: <text>:1:7 unexpected input
+        
+            // Retrieve the underlying model
+            const model = thiz.editor.getModel();
+            // Set EOL for the model
+            model.setEOL(monaco.editor.EndOfLineSequence.LF);
+        
+            // Dynamically modify the height of the editor window if new lines are added.
+            let ignoreEvent = false;
+            const updateHeight = () => {
+            const contentHeight = thiz.editor.getContentHeight();
+            // We're avoiding a width change
+            //editorDiv.style.width = `${width}px`;
+            thiz.editorDiv.style.height = `${contentHeight}px`;
+                try {
+                    ignoreEvent = true;
+            
+                    // The key to resizing is this call
+                    thiz.editor.layout();
+                } finally {
+                    ignoreEvent = false;
+                }
+            };
+        
+            // Helper function to check if selected text is empty
+            function isEmptyCodeText(selectedCodeText) {
+                return (selectedCodeText === null || selectedCodeText === undefined || selectedCodeText === "");
+            }
+        
+            // Registry of keyboard shortcuts that should be re-added to each editor window
+            // when focus changes.
+            const addPyodideKeyboardShortCutCommands = () => {
+            // Add a keydown event listener for Shift+Enter to run all code in cell
+            thiz.editor.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Enter, () => {
+                // Retrieve all text inside the editor
+                thiz.runCode(thiz.editor.getValue());
+            });
+        
+            // Add a keydown event listener for CMD/Ctrl+Enter to run selected code
+            thiz.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+                    // Get the selected text from the editor
+                    const selectedText = thiz.editor.getModel().getValueInRange(thiz.editor.getSelection());
+                    // Check if no code is selected
+                    if (isEmptyCodeText(selectedText)) {
+                        // Obtain the current cursor position
+                        let currentPosition = thiz.editor.getPosition();
+                        // Retrieve the current line content
+                        let currentLine = thiz.editor.getModel().getLineContent(currentPosition.lineNumber);
+                
+                        // Propose a new position to move the cursor to
+                        let newPosition = new monaco.Position(currentPosition.lineNumber + 1, 1);
+                
+                        // Check if the new position is beyond the last line of the editor
+                        if (newPosition.lineNumber > thiz.editor.getModel().getLineCount()) {
+                            // Add a new line at the end of the editor
+                            thiz.editor.executeEdits("addNewLine", [{
+                            range: new monaco.Range(newPosition.lineNumber, 1, newPosition.lineNumber, 1),
+                            text: "\n", 
+                            forceMoveMarkers: true,
+                            }]);
+                        }
+                        
+                        // Run the entire line of code.
+                        thiz.runCode(currentLine);
+                
+                        // Move cursor to new position
+                        thiz.editor.setPosition(newPosition);
+                    } else {
+                        // Code to run when Ctrl+Enter is pressed with selected code
+                        thiz.runCode(selectedText);
+                    }
+                });
+            }
+        
+            // Register an on focus event handler for when a code cell is selected to update
+            // what keyboard shortcut commands should work.
+            // This is a workaround to fix a regression that happened with multiple
+            // editor windows since Monaco 0.32.0 
+            // https://github.com/microsoft/monaco-editor/issues/2947
+            thiz.editor.onDidFocusEditorText(addPyodideKeyboardShortCutCommands);
+        
+            // Register an on change event for when new code is added to the editor window
+            thiz.editor.onDidContentSizeChange(updateHeight);
+        
+            // Manually re-update height to account for the content we inserted into the call
+            updateHeight();
+                
+        });
+
+        
+        // Add a click event listener to the run button
+        thiz.runButton.onclick = function () {
+            thiz.runCode(
+                thiz.editor.getValue()
+            );
+        };
+        
+        // Add a click event listener to the reset button
+        thiz.copyButton.onclick = function () {
+            // Retrieve current code data
+            const data = thiz.editor.getValue();
+            
+            // Write code data onto the clipboard.
+            navigator.clipboard.writeText(data || "");
+        };
+        
+        // Add a click event listener to the copy button
+        thiz.resetButton.onclick = function () {
+            thiz.editor.setValue(thiz.editor.__qpyodideinitialCode);
+        };
+    }
+
+    disableInteractiveCells() {
+        // Enable locking of execution for the cell
+        this.executionLock = true;
+
+        // Disallowing execution of other code cells
+        document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+            btn.disabled = true;
+        });
+    }
+
+    enableInteractiveCells() {
+        // Remove locking of execution for the cell
+        this.executionLock = false;
+
+        // All execution of other code cells
+        document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+            btn.disabled = false;
+        });
+    }
+
+    /**
+     * Execute the Python code inside the editor.
+     */
+    async runCode(code) {
+        
+        // Check if we have an execution lock
+        if (this.executeLock) return; 
+        
+        this.disableInteractiveCells();
+
+        // Force wait procedure
+        await mainPyodide;
+
+        // Clear the output stock
+        qpyodideResetOutputArray();
+
+        // Generate a new canvas element, avoid attaching until the end
+        let graphFigure = document.createElement("figure");
+        document.pyodideMplTarget = graphFigure;
+
+        console.log("Running code!");
+        // Obtain results from the base class
+        try {
+            // Always check to see if the user adds new packages
+            await mainPyodide.loadPackagesFromImports(code);
+
+            // Process result
+            const output = await mainPyodide.runPythonAsync(code);
+
+            // Add output
+            qpyodideAddToOutputArray(output, "stdout");
+        } catch (err) {
+            // Add error message
+            qpyodideAddToOutputArray(err, "stderr");
+            // TODO: There has to be a way to remove the Pyodide portion of the errors... 
+        }
+
+        const result = qpyodideRetrieveOutput();
+
+        // Nullify the output area of content
+        this.outputCodeDiv.innerHTML = "";
+        this.outputGraphDiv.innerHTML = "";        
+
+        // Design an output object for messages
+        const pre = document.createElement("pre");
+        if (/\S/.test(result)) {
+            // Display results as HTML elements to retain output styling
+            const div = document.createElement("div");
+            div.innerHTML = result;
+            pre.appendChild(div);
+        } else {
+            // If nothing is present, hide the element.
+            pre.style.visibility = "hidden";
+        }
+
+        // Add output under interactive div
+        this.outputCodeDiv.appendChild(pre);
+
+        // Place the graphics onto the page
+        if (graphFigure) {
+
+            if (this.options['fig-cap']) {
+                // Create figcaption element
+                const figcaptionElement = document.createElement('figcaption');
+                figcaptionElement.innerText = this.options['fig-cap'];
+                // Append figcaption to figure
+                graphFigure.appendChild(figcaptionElement);    
+            }
+
+            this.outputGraphDiv.appendChild(graphFigure);
+        }
+
+        // Re-enable execution
+        this.enableInteractiveCells();
+    }
+};
+
+/**
+ * OutputCell class for customizing and displaying output.
+ * @class
+ * @extends BaseCell
+ */
+class OutputCell extends BaseCell {
+    /**
+     * Constructor for OutputCell.
+     * @constructor
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     */
+    constructor(cellData) {
+      super(cellData);
+    }
+  
+    /**
+     * Display customized output on the page.
+     * @param {*} output - Result to be displayed.
+     */
+    displayOutput(output) {
+        const results = this.executeCode();
+        return results;
+    }
+  }
+
+/**
+ * SetupCell class for suppressed output.
+ * @class
+ * @extends BaseCell
+ */
+class SetupCell extends BaseCell {
+    /**
+     * Constructor for SetupCell.
+     * @constructor
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     */
+    constructor(cellData) {
+        super(cellData);
+    }
+
+    /**
+     * Execute the Python code without displaying the results.
+     */
+    runSetupCode() {
+        // Execute code without displaying output
+        this.executeCode();
+    }
+};
+</script>
+<script type="module">
+// Handle cell initialization initialization
+qpyodideCellDetails.map(
+    (entry) => {
+      // Handle the creation of the element
+      qpyodideCreateCell(entry);
+    }
+  );
+</script>
+
+
+
+
+</body></html>
