@@ -250,10 +250,7 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 </div>
-<aside class="notes"><ul>
-<li><p>Reducible error: in general we can improve this by choosing most appropriate statistical learning tecniques to estimate <span class="math inline">\(f\)</span></p></li>
-<li><p>Irreducible error due to randomness or unmeasured variables that are useful in predicting <span class="math inline">\(y\)</span>. So even if we could get a perfect estimate of <span class="math inline">\(f\)</span> there would be some error</p></li>
-</ul><style type="text/css">
+<aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -287,11 +284,7 @@ Juan D. Montoro-Pons | 2024/25
 <blockquote>
 <p><a href="https://juandmontoro.github.io/bigDataEco/notebooks/parametric_vs_nonparam.ipynb">Click to download example</a></p>
 </blockquote>
-<aside class="notes"><ul>
-<li><p>It is parametric because it reduces itself to a process of estimating a set of parameters. MAIN DISADVANTAGE: the model we choose will not match the true unknown form <span class="math inline">\(f\)</span>. We can try to address this problem by selecting alternative (more complex) functional forms or increasing the number of parameters, but this leads to overfitting.</p></li>
-<li><p>Non-parametric suffer from a problem: as estimation is not reduced to a small number of parameters a very large number of observations is required to obtain an accurate estimate for <span class="math inline">\(f\)</span>. THINK OF INCLUDING AN EXAMPLE WITH A DATASET AND NONPARAM METHOD</p></li>
-<li><p>Furthermore there is a trade-off between prediction accuracy and model interpretability: non-parametric methods lead to complex estimates of <span class="math inline">\(f\)</span> that make it difficult to understand ho any individual predictor is associated with a response</p></li>
-</ul><style type="text/css">
+<aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -312,9 +305,7 @@ Juan D. Montoro-Pons | 2024/25
 <blockquote>
 <p>Overfitting: small MSE training set but large MSE test set due to excess flexibility (less flexibility would have yielded smaller test MSE)</p>
 </blockquote>
-<aside class="notes"><p>If no test data are available, then there is no certainty that using the training MSE to choose a model will produce the bets possible model on new (test) data as many methods indeed estimate functional forms (i.e.&nbsp;coefficients in OLS) to minimize the training set MSE. In general <strong>we almost always expect the training MSE to be smaller than the test MSE</strong> because most statistical learning methods either directly or indirectly seek to minimize the training MSE</p>
-<p>A fundamental property of statistical learning that holds regardless of the particular data set at hand and regardless of the statistical method being used. As model flexibility increases, the training MSE will decrease, but the test MSE may not. When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.</p>
-<style type="text/css">
+<aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -332,30 +323,7 @@ Juan D. Montoro-Pons | 2024/25
 <li><p>Bias of <span class="math inline">\(\hat{f}\)</span>: these are systematic error in a model’s predictions. Emerge due to the fact that we approximate the relation between <span class="math inline">\(y\)</span> and <span class="math inline">\(X\)</span> through a specific functional class (i.e.&nbsp;simplifying assumptions) which might be more simpler than the real-world mechanism (and result in the model underfitting the data). Generally, more flexible methods result in less bias.</p></li>
 </ul>
 <p>The minimization of the MSE requires a method that produces low variance and low bias (which tipically are inversely related to model complexity). In setting up a model one can introduce bias in a way that decreases variance enough to lower the overall mean squared error</p>
-<aside class="notes"><p>This is referred to as a trade-off because it is easy to obtain a method with extremely low bias but high variance (for instance, by drawing a curve that passes through every single training observation) or a method with very low variance but high bias (by fitting a horizontal line to the data). The challenge lies in finding a method for which both the variance and the squared bias are low.</p>
-<p><strong>Proof:</strong></p>
-<p><span class="math display">\[E[(y-\hat{f}(x))^2] = E[(f(x)+\epsilon-\hat{f}(x))^2]=E[(f(x)-\hat{f}(x))^2]+2\,  E[(f(x)-\hat{f}(x))\epsilon]+E[\epsilon^2] = E[(f(x)-\hat{f}(x))^2]+ E[\epsilon^2]\]</span> Note that:</p>
-<p><span class="math display">\[E[(f(x)-\hat{f}(x))\epsilon]= E[(f(x)-\hat{f}(x))] \times E[\epsilon]\]</span></p>
-<p>as epsilon is independent from <span class="math inline">\(x\)</span> and</p>
-<p><span class="math display">\[E[(f(x)-\hat{f}(x))] \times E[\epsilon]= 0\]</span> as <span class="math inline">\(E[\epsilon]=0\)</span></p>
-<p>Next, we modify the first term by adding and subtracting <span class="math inline">\(E[\hat{f}(x)]\)</span></p>
-<p><span class="math display">\[ E[(f(x)-\hat{f}(x))^2] = E[(f(x)-E[\hat{f}(x)]+E[\hat{f}(x)]-\hat{f}(x))^2] = \]</span> Then, we expand and get <span class="math display">\[ = \underbrace{E[(f(x)-E[\hat{f}(x)])^2]}_{\mathrm{A}}+\underbrace{E[(E[\hat{f}(x)]-\hat{f}(x))^2]}_{\mathrm{B}} + \underbrace{2\,E[(E[\hat{f}(x)]-\hat{f}(x))(f(x)-E[\hat{f}(x)])]}_{\mathrm{C}} \]</span></p>
-<p>Note that the term A can be simplified as</p>
-<p><span class="math display">\[ \mathrm{A}=E[(f(x)-E[\hat{f}(x)])^2] = E[f(x)^2] + E[E[\hat{f}(x)]^2]-2 \, E[f(x)E[\hat{f}(x)]] =\]</span></p>
-<p><span class="math display">\[ f(x)^2 + E[\hat{f}(x)]^2 - 2 f(x) E[\hat{f}(x)] = \left(f(x)-E[\hat{f}(x)]  \right)^2 = \mathrm{Bias}(\hat{f(x)})^2\]</span> (Note that <span class="math inline">\(f(x)\)</span> is not a random variable but a deterministic amount that depends on <span class="math inline">\(x\)</span>). Using this same reasoning the term C in the above expression is null:</p>
-<p><span class="math display">\[C = 2\, E[(E[\hat{f}(x)]-\hat{f}(x))(f(x)-E[\hat{f}(x)])] =\]</span> <span class="math display">\[= 2\, \left( E[E[\hat{f}(x)]f(x)]-E[E[\hat{f}(x)]^2] - E[\hat{f}(x)f(x)]+E[\hat{f}(x) E[\hat{f}(x)]]  \right)= \]</span></p>
-<p><span class="math display">\[ = 2 \, \left(f(x) E[\hat{f}(x)]-E[\hat{f}(x)]^2 - f(x) E[\hat{f}(x)] + E[\hat{f}(x)]^2 \right)=0\]</span> Finally, B</p>
-<p><span class="math display">\[B=E[(E[\hat{f}(x)]-\hat{f}(x))^2]=E[E[\hat{f}(x)]^2]+E[\hat{f}(x)^2]-2\, E[E[\hat{f}(x)]\hat{f}(x)] \]</span> <span class="math display">\[=E[\hat{f}(x)]^2+E[\hat{f}(x)^2]-2\, E[\hat{f}(x)]^2=E[(\hat{f}(x)-E[\hat{f}(x)])^2]=Var(\hat{f}(x)) \]</span></p>
-<p>Therefore, plugging back our derivations in the original expression:</p>
-<p><span class="math display">\[ MSE = Bias(\hat{f}(x))^2 + Var(\hat{f}(x)) + Var(\epsilon)\]</span> Dimensionality reduction and feature selection can decrease variance by simplifying models. Similarly, a larger training set tends to decrease variance. Adding features (predictors) tends to decrease bias, at the expense of introducing additional variance. Learning algorithms typically have some tunable parameters that control bias and variance; for example,</p>
-<ul>
-<li>linear and Generalized linear models can be regularized (focing predictors to zero) to decrease their variance at the cost of increasing their bias.</li>
-<li>In artificial neural networks, the variance increases and the bias decreases as the number of hidden units increase. Like in GLMs, regularization is typically applied.</li>
-<li>In decision trees, the depth of the tree determines the variance. Decision trees are commonly pruned to control variance.[7]:307</li>
-</ul>
-<p>One way of resolving the trade-off is to use mixture models and ensemble learning. For example, boosting combines many “weak” (high bias) models in an ensemble that has lower bias than the individual models, while bagging combines “strong” learners in a way that reduces their variance.</p>
-<p>Model validation methods such as cross-validation (statistics) can be used to tune models so as to optimize the trade-off.</p>
-<style type="text/css">
+<aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -367,8 +335,7 @@ Juan D. Montoro-Pons | 2024/25
           display:block!important;
       }</style></aside></section><section id="model-complexity-and-bias-variance-tradeoff" class="slide level2" style="color:#447099"><h2>Model complexity and bias-variance tradeoff</h2>
 
-<img data-src="pics/biasvariance.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><p>NOTE ON ACCURACY (BIAS) AND PRECISION Accuracy (bias) and precision (variance) are two measures of observational error. Accuracy is how close a given set of measurements (observations or readings) are to their true value. Precision is how close the measurements are to each other.</p>
-<style type="text/css">
+<img data-src="pics/biasvariance.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -514,8 +481,7 @@ Juan D. Montoro-Pons | 2024/25
 <li><p>Indirectly estimate test error by making an adjustment to the training error to account for potential overfitting: AIC, BIC or adjusted R<span class="math inline">\(^2\)</span>.</p></li>
 <li><p>Directly estimate the test error using resamplig methods.</p></li>
 </ol>
-<aside class="notes"><p>The training set MSE is an underestimate of the test MSE: training error will decrease as we incerase the complexity of the model (in the case of linear regression as we include more predictors). But from this it does not follow that the model gets better at predicting on new data.</p>
-<style type="text/css">
+<aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -557,11 +523,7 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 
-<img data-src="pics/validation_set.webp" class="r-stretch"><aside class="notes"><p>Two drawbacks:</p>
-<ol type="1">
-<li><p>the validation estimate of the test error can suffer from high variability (depending on which observations are randomly included in the training/validation set).</p></li>
-<li><p>Since methods that use more observations perform better, the estimation of the test error rate may tend to overestimaten the test error rate on the entire dataset.</p></li>
-</ol><style type="text/css">
+<img data-src="pics/validation_set.webp" class="r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -599,13 +561,7 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 
-<img data-src="pics/loocv.webp" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><p>Advantages:</p>
-<ol type="1">
-<li><p>Less bias: model is fit with <span class="math inline">\(n-1\)</span> observations (almost the entire dataset) and does not tend to overestimate the test error rate</p></li>
-<li><p>While the validation set approach produces different estimates depending on the split, LOOCV always produces the same results: the re is no randomness in the train/validation splits</p></li>
-</ol>
-<p>BUT LOOCV has the potential to be computationally expensive as the same model has to be fit n times (which can be time consuming if n is large)</p>
-<style type="text/css">
+<img data-src="pics/loocv.webp" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -640,13 +596,7 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 
-<img data-src="pics/crossvalidation.webp" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><p>It is not hard to see that LOOCV is a special case of CV when <span class="math inline">\(k=n\)</span>. But in contrast to LOOCV, CV makes time-intensive machine learning methods feasible. In short CV offers a computational advantage over LOOCV.</p>
-<ul>
-<li><p>Bias: the bias of CV is between that of Validation Set and LOOCV (the one with least bias). However one does not only take into consideration bias, as variance is also important.</p></li>
-<li><p>CV has less variance that LOOCV. This is so because LOOCV we are in effect averaging the outputs of n fitted models, each of which is trained on an almost identical set of observations; therefore, these outputs are highly (positively) correlated with each other. In contrast, when we perform k-fold CV with k &lt; n, we are averaging the outputs of k fitted models that are somewhat less correlated with each other.</p></li>
-</ul>
-<p>To summarize, there is a bias-variance trade-off associated with the choice of k in k-fold cross-validation. Usually k=5 or 10 have been shown empirically to yield test error rate estimates that suffer neither from excessively high bias nor from very high variance.</p>
-<style type="text/css">
+<img data-src="pics/crossvalidation.webp" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -701,17 +651,11 @@ Juan D. Montoro-Pons | 2024/25
 <blockquote>
 <p>Choose optimal penalty <span class="math inline">\(lambda\)</span> through resampling (cross-validation)</p>
 </blockquote>
-</section><section id="ridge-regression-visual-interpretation" class="slide level2 scrollable" style="color:#447099"><h2>Ridge regression: visual interpretation</h2>
+</section><section id="ridge-regression-visual-interpretation" class="slide level2" style="color:#447099"><h2>Ridge regression: visual interpretation</h2>
 <p>&nbsp;</p>
 <p>If one considers the two predictors case, then ridge regression chooses the coefficients that minimize RSS and lie in the circle <span class="math inline">\(\beta_1^2+\beta_2^2\leq s\)</span>. Then:</p>
 
-<img data-src="pics/RIDGE_PLOT.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><ol type="1">
-<li><p>The budget <span class="math inline">\(s\)</span> is on how large the sum of squares of coefficients can be! Note that for a given budget <span class="math inline">\(s\)</span> there is an implicit that produces exactly the same set of coefficients (no matter what approach we follow).</p></li>
-<li><p>Note that large <span class="math inline">\(s\)</span> is related to small <span class="math inline">\(\lambda\)</span> and the other way around (a large budget might not be constraining the coefficients) Indeed you should note that <span class="math inline">\(\lambda\)</span> is a reformulation of a lagrange multiplier if s were zero!</p></li>
-<li><p>In a 2D space the least squares solution is marked as <span class="math inline">\(\hat{\beta}\)</span> while the blue circle represent the ridge regression constraints. If s is sufficiently large, then the constraint regions will contain <span class="math inline">\(\hat{\beta}\)</span> and so the ridge regression estimates will be the same as the least squares estimates. However, in the figure the least squares estimates lie out-side of the circle, and so the least squares estimates are not the same as the ridge regression estimates. Each of the ellipses centered around the LS solution represents a contour: this means that all of the points on a particular ellipse have the same RSS value. As the ellipses expand away from the least squares coefficient estimates, the RSS increases. The ridge regression coefficients are those were the ellipse contacts the constraint region (min RSS st sum of squares of coefs less than or equal to s).</p></li>
-</ol>
-<p>Graphically it can be seen that ridge regression effectively shrinks the value(s) of the coefficient(s).</p>
-<style type="text/css">
+<img data-src="pics/RIDGE_PLOT.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
@@ -735,16 +679,16 @@ Juan D. Montoro-Pons | 2024/25
 <li><p>Coefficients are also biased (towards zero) and smaller variance than OLS</p></li>
 <li><p>As with ridge regression, LASSO can be reformulated as</p></li>
 </ul>
-<p><span class="math display">\[\textrm{minimize } \sum_i \left( y_i-x_i\beta \right)^2 s.t. \sum_j |\beta_j| \leq s\]</span> &gt; Choose optimal penalty <span class="math inline">\(lambda\)</span> through resampling (cross-validation)</p>
+<p><span class="math display">\[\textrm{minimize } \sum_i \left( y_i-x_i\beta \right)^2 s.t. \sum_j |\beta_j| \leq s\]</span></p>
+<blockquote>
+<p>Choose optimal penalty <span class="math inline">\(\lambda\)</span> through resampling (cross-validation)</p>
+</blockquote>
 </section><section id="lasso-visual-interpretation" class="slide level2" style="color:#447099"><h2>LASSO: visual interpretation</h2>
 <p>&nbsp;</p>
 <p>If one considers the two predictors case, then LASSO regression chooses the coefficients that minimize RSS and lie in the area <span class="math inline">\(|\beta_1|+|\beta_2|\leq s\)</span> (diamond-shaped).</p>
 <p>Then:</p>
 
-<img data-src="pics/LASSO_PLOT.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><p>Again, the lasso regression coefficient estimates are given by the first point at which an ellipse contacts the constraint region. Since ridge regression has a circular constraint with no sharp points, this intersection will not generally occur on an axis, and so the ridge regression coefficient estimates will be exclusively non-zero. However, the lasso constraint has corners at each of the axes, and so the ellipse will often intersect the constraint region at an axis (A corner solution is most likely in the lasso regression). When this occurs, one of the coefficients will equal zero. In higher dimensions, many of the coefficient estimates may equal zero simultaneously.</p>
-<p>Explanation: take a one coefficient model and find the dLoss/dbeta=0 and solve for beta in teh ridge and in the lasso (two cases: beta&gt;0 and beta&lt;0). One sees that in the case of L1 regularization, there are infinite possible values of x and y for a given lambda, for which it is possible for beta to be 0 (which does not happen in the case of Ridge regression). Hence, LASSO or L1 Regression encourages 0 coefficients therefore acting as a method of variable selection.</p>
-<p>See explanation in https://medium.com/<span class="citation" data-cites="mukulranjan/how-does-lasso-regression-l1-encourage-zero-coefficients-but-not-the-l2-20e4893cba5d">@mukulranjan/how-does-lasso-regression-l1-encourage-zero-coefficients-but-not-the-l2-20e4893cba5d</span></p>
-<style type="text/css">
+<img data-src="pics/LASSO_PLOT.png" class="quarto-figure quarto-figure-center r-stretch"><aside class="notes"><style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
           clip: rect(1px, 1px, 1px, 1px);
