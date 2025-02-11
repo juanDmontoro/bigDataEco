@@ -317,7 +317,7 @@ Juan D. Montoro-Pons | 2024/25
           display:block!important;
       }</style></aside></section><section id="the-mse-decomposition" class="slide level2" style="color:#447099"><h2>The MSE decomposition</h2>
 <p>It can be shown that</p>
-<p><span class="math display">\[MSE=E(y-\hat{f}(x))^2= \mathrm{Var}(\hat{f}(x))+\left(\mathrm{Bias}(\hat{f}(x))\right)^2+\mathrm{Var}(\epsilon)\]</span></p>
+<p><span class="math display">\[MSE=E[(y-\hat{f}(x))^2]= \mathrm{Var}(\hat{f}(x))+\left(\mathrm{Bias}(\hat{f}(x))\right)^2+\mathrm{Var}(\epsilon)\]</span></p>
 <ul>
 <li><p>Variance of <span class="math inline">\(\hat{f}\)</span>: variability in <span class="math inline">\(\hat{f}\)</span>, i.e.&nbsp;how much predictions would change if trained on a different dataset. A high variance model is extremely sensitive to the data (related to overfitting). Usually flexibility and variance of methods are positively related</p></li>
 <li><p>Bias of <span class="math inline">\(\hat{f}\)</span>: these are systematic error in a model’s predictions. Emerge due to the fact that we approximate the relation between <span class="math inline">\(y\)</span> and <span class="math inline">\(X\)</span> through a specific functional class (i.e.&nbsp;simplifying assumptions) which might be more simpler than the real-world mechanism (and result in the model underfitting the data). Generally, more flexible methods result in less bias.</p></li>
@@ -649,7 +649,7 @@ Juan D. Montoro-Pons | 2024/25
 </ul>
 <p><span class="math display">\[\textrm{minimize } \sum_i \left( y_i-x_i\beta \right)^2 s.t. \sum_j\beta_j^2 \leq s\]</span></p>
 <blockquote>
-<p>Choose optimal penalty <span class="math inline">\(lambda\)</span> through resampling (cross-validation)</p>
+<p>Choose optimal penalty <span class="math inline">\(\lambda\)</span> through resampling (cross-validation)</p>
 </blockquote>
 </section><section id="ridge-regression-visual-interpretation" class="slide level2" style="color:#447099"><h2>Ridge regression: visual interpretation</h2>
 <p>&nbsp;</p>
