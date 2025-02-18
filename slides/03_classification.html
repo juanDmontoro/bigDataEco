@@ -229,7 +229,7 @@ Juan D. Montoro-Pons | 2024/25
 <p>GOAL: predict the probability of a customer defaulting on a loan.</p>
 <ul>
 <li>Outcome: Default (binary)</li>
-<li>Two predictors are used: Loan amount and term of loan (both are standardized).</li>
+<li>Two predictors are used: debt-to-income ratio and term (both standardized).</li>
 </ul>
 </div>
 <div id="tabset-1-2">
@@ -259,7 +259,7 @@ Juan D. Montoro-Pons | 2024/25
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby">
 <li><a data-tabby-default="" href="#tabset-2-1">The linear model</a></li>
-<li><a href="#tabset-2-2">Logistic regression in <code>Python</code></a></li>
+<li><a href="#tabset-2-2">Logistic regression</a></li>
 <li><a href="#tabset-2-3">Decision boundary</a></li>
 </ul>
 <div class="tab-content">
@@ -274,7 +274,7 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 <p>The central output of a linear regression is a predictor for the conditional mean:</p>
-<p><span class="math display">\[\mu_i=0.5083285752419477 +0.25246833 \times \textrm{loan_amount} + 0.00035319 \times \textrm{term}\]</span></p>
+<p><span class="math display">\[\mu_i=0.5083285752419477 +0.25246833 \times \textrm{debt-to-income} + 0.00035319 \times \textrm{term}\]</span></p>
 </div>
 <div id="tabset-2-2">
 <div class="cell" data-layout-align="center">
@@ -287,10 +287,10 @@ Juan D. Montoro-Pons | 2024/25
 </div>
 </div>
 <p>The central output of a logistic regression is a linear predictor (we call it <span class="math inline">\(\nu_i\)</span>)</p>
-<p><span class="math display">\[\nu_i=-0.0391638 +2.03475556 \times \textrm{loan_amount} + 0.10518903 \times \textrm{term}\]</span> The linear predictor is transformed to generate predictions on the probability of default <span class="math inline">\(\mu_i\)</span>. The logit link is used:</p>
-<p><span class="math display">\[\log\left(\frac{\mu_i}{1-\mu_i}\right) =-0.0391638 +2.03475556 \times \textrm{loan_amount} + 0.10518903 \times \textrm{term}\]</span></p>
+<p><span class="math display">\[\nu_i=-0.0391638 +2.03475556 \times \textrm{debt-to-income} + 0.10518903 \times \textrm{term}\]</span> The linear predictor is transformed to generate predictions on the probability of default <span class="math inline">\(\mu_i\)</span>. The logit link is used:</p>
+<p><span class="math display">\[\log\left(\frac{\mu_i}{1-\mu_i}\right) =-0.0391638 +2.03475556 \times \textrm{debt-to-income} + 0.10518903 \times \textrm{term}\]</span></p>
 <p>Solving for <span class="math inline">\(\mu_i\)</span> we get predicted probabilities for given <span class="math inline">\(x_i\)</span> values:</p>
-<p><span class="math display">\[\mu_i=\frac{\exp\left(-0.0391638 +2.03475556 \times \textrm{loan_amount} + 0.10518903 \times \textrm{term}\right)}{1+\exp\left(-0.0391638 +2.03475556 \times \textrm{loan_amount} + 0.10518903 \times \textrm{term}\right)}\]</span></p>
+<p><span class="math display">\[\mu_i=\frac{\exp\left(-0.0391638 +2.03475556 \times \textrm{debt-to-income} + 0.10518903 \times \textrm{term}\right)}{1+\exp\left(-0.0391638 +2.03475556 \times \textrm{debt-to-income} + 0.10518903 \times \textrm{term}\right)}\]</span></p>
 </div>
 <div id="tabset-2-3">
 <div class="cell" data-layout-align="center">
