@@ -6,16 +6,16 @@
 <script src="resampling_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="resampling_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="resampling_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="resampling_files/libs/quarto-html/quarto-syntax-highlighting-cd1b40cbd4bf9107593907cf68b8f144.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
-
-  <title>resampling</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="resampling_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="resampling_files/libs/revealjs/dist/reveal.css">
-  <style>
+<link href="resampling_files/libs/quarto-html/quarto-syntax-highlighting-cd1b40cbd4bf9107593907cf68b8f144.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+<title>resampling</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="resampling_files/libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="resampling_files/libs/revealjs/dist/reveal.css">
+<style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="resampling_files/libs/revealjs/dist/theme/quarto-c943df322edfbda1944bdbe3ad71442d.css">
-  <link href="resampling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="resampling_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="resampling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="resampling_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
+<link rel="stylesheet" href="resampling_files/libs/revealjs/dist/theme/quarto-c943df322edfbda1944bdbe3ad71442d.css">
+<link href="resampling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="resampling_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="resampling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="resampling_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
       overflow: auto;
@@ -121,10 +121,10 @@
       margin-right: 0; 
     }
   </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/editor/editor.main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-  <style type="text/css">
+<script src="resampling_files/libs/kePrint-0.0.1/kePrint.js"></script><link href="resampling_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/editor/editor.main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style type="text/css">
   .monaco-editor pre {
     background-color: unset !important;
   }
@@ -260,7 +260,7 @@
     overflow: scroll;
   }
   </style>
-  <script type="module">
+<script type="module">
   // Document level settings ----
 
   // Determine if we need to install python packages
@@ -283,11 +283,10 @@
   }
 
   // Store cell data
-  globalThis.qpyodideCellDetails = [{"code":"\nfrom sklearn.model_selection import KFold, LeaveOneOut, train_test_split\nimport pandas as pd\nimport numpy as np\n\nid = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]\ntrain_test_split(id,test_size=0.4,random_state=42)","id":1,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"loo = LeaveOneOut()\nfor train,val in loo.split(id):\n    print(train,val)","id":2,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"kf = KFold(n_splits=5,shuffle=True,random_state=42)\nfor train,val in kf.split(id):\n    print(train,val)","id":3,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+  globalThis.qpyodideCellDetails = [{"code":"\nfrom sklearn.model_selection import KFold, LeaveOneOut, train_test_split\nimport pandas as pd\nimport numpy as np\n\nid = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]\ntrain_test_split(id,test_size=0.4,random_state=42)","id":1,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"loo = LeaveOneOut()\nfor train,val in loo.split(id):\n    print(train,val)","id":2,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"kf = KFold(n_splits=5,shuffle=True,random_state=42)\nfor train,val in kf.split(id):\n    print(train,val)","id":3,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 
-  </script>
-  <script type="module">
+  </script><script type="module">
   // Declare startupMessageqpyodide globally
   globalThis.qpyodideStartupMessage = document.createElement("p");
 
@@ -382,8 +381,7 @@
   }
 
   qpyodideDisplayStartupMessage(qpyodideShowStartupMessage);
-  </script>
-  <script type="module">
+  </script><script type="module">
   // Create a logging setup
   globalThis.qpyodideMessageArray = []
 
@@ -475,9 +473,7 @@
   </script>
 </head>
 <body class="quarto-light">
-<script src="mathjax-config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/loader.js"></script>
-<script type="module" id="qpyodide-monaco-editor-init">
+<script src="mathjax-config.js"></script><script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/loader.js"></script><script type="module" id="qpyodide-monaco-editor-init">
 
   // Configure the Monaco Editor's loader
   require.config({
@@ -485,64 +481,128 @@
       'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs'
     }
   });
-</script>
-  <div class="reveal">
+</script><div class="reveal">
     <div class="slides">
 
 
-<section>
-<section id="resampling" class="title-slide slide level1 center" data-background-color="#447099">
-<h1>Resampling</h1>
+<section><section id="resampling" class="title-slide slide level1 center" data-background-color="#447099"><h1>Resampling</h1>
 <h2>
 Big data in Economics
 </h2>
 <h3>
 Juan D. Montoro-Pons | 2026
 </h3>
-</section>
-<section id="testtrain-split" class="slide level2">
-<h2>Test/train split</h2>
+</section><section id="the-data" class="slide level2"><h2>The data</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">y</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1.4940560</td>
+<td style="text-align: right;">-10.308254</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6.4537178</td>
+<td style="text-align: right;">-8.828633</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.1170080</td>
+<td style="text-align: right;">-8.133728</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4.9585424</td>
+<td style="text-align: right;">-9.213721</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.4092993</td>
+<td style="text-align: right;">-9.454467</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.0160795</td>
+<td style="text-align: right;">-9.691311</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.5167109</td>
+<td style="text-align: right;">-8.454218</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.5581356</td>
+<td style="text-align: right;">-9.605674</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5.4110972</td>
+<td style="text-align: right;">-9.529354</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">4.7535281</td>
+<td style="text-align: right;">-7.788928</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.3558105</td>
+<td style="text-align: right;">-7.300376</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">3.0658075</td>
+<td style="text-align: right;">-8.542987</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.3828303</td>
+<td style="text-align: right;">-11.649267</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2.8562581</td>
+<td style="text-align: right;">-9.869974</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">3.6009539</td>
+<td style="text-align: right;">-10.075285</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="testtrain-split" class="slide level2"><h2>Test/train split</h2>
 <p>&nbsp;</p>
 <div id="qpyodide-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="leave-one-out-split" class="slide level2">
-<h2>Leave One Out split</h2>
+</section><section id="leave-one-out-split" class="slide level2"><h2>Leave One Out split</h2>
 <p>&nbsp;</p>
 <div id="qpyodide-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="kfold-split" class="slide level2">
-<h2>Kfold split</h2>
+</section><section id="kfold-split" class="slide level2"><h2>Kfold split</h2>
 <p>&nbsp;</p>
 <div id="qpyodide-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 
 </section></section>
-    </div>
+</div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
 
 </div>
 </div></div>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="resampling_files/libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="resampling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/quarto-support/support.js"></script>
-  
-
-  <script src="resampling_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="resampling_files/libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
-
-  <script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="resampling_files/libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="resampling_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="resampling_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="resampling_files/libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="resampling_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="resampling_files/libs/revealjs/plugin/quarto-support/support.js"></script><script src="resampling_files/libs/revealjs/plugin/notes/notes.js"></script><script src="resampling_files/libs/revealjs/plugin/search/search.js"></script><script src="resampling_files/libs/revealjs/plugin/zoom/zoom.js"></script><script src="resampling_files/libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
 
       // Full list of configuration options available at:
       // https://revealjs.com/config/
@@ -733,8 +793,42 @@ Juan D. Montoro-Pons | 2026
           RevealZoom
         ]
       });
-    </script>
-    <script id="quarto-html-after-body" type="application/javascript">
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
         tabsets.forEach(function(tabset) {
@@ -1053,8 +1147,7 @@ Juan D. Montoro-Pons | 2026
           }
         }
       });
-      </script>
-    <script type="module">
+      </script><script type="module">
     /**
      * Factory function to create different types of cells based on options.
      * @param {Object} cellData - JSON object containing code, id, and options.
@@ -1580,8 +1673,7 @@ Juan D. Montoro-Pons | 2026
             this.executeCode();
         }
     };
-    </script>
-    <script type="module">
+    </script><script type="module">
     // Handle cell initialization initialization
     qpyodideCellDetails.map(
         (entry) => {
@@ -1590,6 +1682,6 @@ Juan D. Montoro-Pons | 2026
         }
       );
     </script>
-    
+
 
 </body></html>
