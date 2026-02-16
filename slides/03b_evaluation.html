@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="03b_evaluation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="03b_evaluation_files/libs/quarto-html/tabby.min.js"></script>
+<script src="03b_evaluation_files/libs/quarto-html/popper.min.js"></script>
+<script src="03b_evaluation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="03b_evaluation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="03b_evaluation_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="03b_evaluation_files/libs/quarto-html/quarto-syntax-highlighting-cd1b40cbd4bf9107593907cf68b8f144.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+<title>b_evaluation</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="03b_evaluation_files/libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="03b_evaluation_files/libs/revealjs/dist/reveal.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #657b83; background-color: #fdf6e3; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #657b83; } /* Normal */
+    code span.al { color: #d33682; font-weight: bold; } /* Alert */
+    code span.an { color: #268bd2; } /* Annotation */
+    code span.at { color: #268bd2; } /* Attribute */
+    code span.bn { color: #2aa198; } /* BaseN */
+    code span.bu { color: #cb4b16; } /* BuiltIn */
+    code span.cf { color: #859900; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #2aa198; } /* Char */
+    code span.cn { color: #2aa198; font-weight: bold; } /* Constant */
+    code span.co { color: #93a1a1; font-style: italic; } /* Comment */
+    code span.cv { color: #2aa198; } /* CommentVar */
+    code span.do { color: #dc322f; } /* Documentation */
+    code span.dt { color: #b58900; font-weight: bold; } /* DataType */
+    code span.dv { color: #2aa198; } /* DecVal */
+    code span.er { color: #dc322f; text-decoration: underline; } /* Error */
+    code span.ex { color: #268bd2; font-weight: bold; } /* Extension */
+    code span.fl { color: #2aa198; } /* Float */
+    code span.fu { color: #268bd2; } /* Function */
+    code span.im { color: #2aa198; } /* Import */
+    code span.in { color: #b58900; } /* Information */
+    code span.kw { color: #859900; font-weight: bold; } /* Keyword */
+    code span.op { color: #859900; } /* Operator */
+    code span.ot { color: #859900; } /* Other */
+    code span.pp { color: #cb4b16; } /* Preprocessor */
+    code span.re { color: #268bd2; background-color: #eee8d5; } /* RegionMarker */
+    code span.sc { color: #dc322f; } /* SpecialChar */
+    code span.ss { color: #dc322f; } /* SpecialString */
+    code span.st { color: #2aa198; } /* String */
+    code span.va { color: #268bd2; } /* Variable */
+    code span.vs { color: #2aa198; } /* VerbatimString */
+    code span.wa { color: #cb4b16; } /* Warning */
+  </style>
+<link rel="stylesheet" href="03b_evaluation_files/libs/revealjs/dist/theme/quarto-c943df322edfbda1944bdbe3ad71442d.css">
+<link href="03b_evaluation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="03b_evaluation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="03b_evaluation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="03b_evaluation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/editor/editor.main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<style type="text/css">
+  .monaco-editor pre {
+    background-color: unset !important;
+  }
+
+  .qpyodide-editor-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+
+  .qpyodide-editor-toolbar-left-buttons, .qpyodide-editor-toolbar-right-buttons {
+    display: flex;
+  }
+
+  .qpyodide-non-interactive-loading-container.qpyodide-cell-needs-evaluation, .qpyodide-non-interactive-loading-container.qpyodide-cell-evaluated {
+    justify-content: center;
+    display: flex;
+    background-color: rgba(250, 250, 250, 0.65);
+    border: 1px solid rgba(233, 236, 239, 0.65);
+    border-radius: 0.5rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .qpyodide-r-project-logo {
+    color: #2767B0; /* R Project's blue color */
+  }
+
+  .qpyodide-icon-status-spinner {
+    color: #7894c4;
+  }
+
+  .qpyodide-icon-run-code {
+    color: #0d9c29
+  }
+
+  .qpyodide-output-code-stdout {
+    color: #111;
+  }
+
+  .qpyodide-output-code-stderr {
+    color: #db4133;
+  }
+
+  .qpyodide-editor {
+    border: 1px solid #EEEEEE;
+  }
+
+  .qpyodide-editor-toolbar {
+    background-color: #EEEEEE;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .qpyodide-button {
+    background-color: #EEEEEE;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+    border-color: #dee2e6;
+    border: 1px solid rgba(0,0,0,0);
+    padding: 0.375rem 0.75rem;
+    font-size: .9rem;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  .qpyodide-button:hover {
+    color: #000;
+    background-color: #d9dce0;
+    border-color: #c8ccd0;
+  }
+
+  .qpyodide-button:disabled,.qpyodide-button.disabled,fieldset:disabled .qpyodide-button {
+    pointer-events: none;
+    opacity: .65
+  }
+
+  .qpyodide-button-reset {
+    color: #696969; /*#4682b4;*/
+  }
+
+  .qpyodide-button-copy {
+    color: #696969;
+  }
+
+
+  /* Custom styling for RevealJS Presentations*/
+
+  /* Reset the style of the interactive area */
+  .reveal div.qpyodide-interactive-area {
+    display: block;
+    box-shadow: none;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+  } 
+
+  /* Provide space to entries */
+  .reveal div.qpyodide-output-code-area pre div {
+    margin: 1px 2px 1px 10px;
+  }
+
+  /* Collapse the inside code tags to avoid extra space between line outputs */
+  .reveal pre div code.qpyodide-output-code-stdout, .reveal pre div code.qpyodide-output-code-stderr {
+    padding: 0;
+    display: contents;
+  }
+
+  .reveal pre div code.qpyodide-output-code-stdout {
+    color: #111;
+  }
+
+  .reveal pre div code.qpyodide-output-code-stderr {
+    color: #db4133;
+  }
+
+
+  /* Create a border around console and output (does not effect graphs) */
+  .reveal div.qpyodide-console-area {
+    border: 1px solid #EEEEEE;
+    box-shadow: 2px 2px 10px #EEEEEE;
+  }
+
+  /* Cap output height and allow text to scroll */
+  /* TODO: Is there a better way to fit contents/max it parallel to the monaco editor size? */
+  .reveal div.qpyodide-output-code-area pre {
+    max-height: 400px;
+    overflow: scroll;
+  }
+  </style>
+<script type="module">
+  // Document level settings ----
+
+  // Determine if we need to install python packages
+  globalThis.qpyodideInstallPythonPackagesList = ['pandas', 'numpy', 'matplotlib', 'seaborn', 'sklearn', 'mlxtend'];
+
+  // Check to see if we have an empty array, if we do set to skip the installation.
+  globalThis.qpyodideSetupPythonPackages = !(qpyodideInstallPythonPackagesList.indexOf("") !== -1);
+
+  // Display a startup message?
+  globalThis.qpyodideShowStartupMessage = true;
+
+  // Describe the webR settings that should be used
+  globalThis.qpyodideCustomizedPyodideOptions = {
+    "indexURL": "https://cdn.jsdelivr.net/pyodide/v0.27.2/full/",
+    "env": {
+      "HOME": "/home/pyodide",
+    }, 
+    stdout: (text) => {qpyodideAddToOutputArray(text, "out");},
+    stderr: (text) => {qpyodideAddToOutputArray(text, "error");}
+  }
+
+  // Store cell data
+  globalThis.qpyodideCellDetails = [{"code":"import numpy as np\n\n# Uncertainty: we'll calculate log-loss for y = 1 and predictions p=0.9 and p=0.55\ntrue_class=1\np=0.9\n-true_class*np.log(p)+(1-true_class)*np.log(1-p)\n\n\n# Error with high/low confidence: p=0.05, p=0.45\n\ntrue_class=1\np=0.05\n-true_class*np.log(p)+(1-true_class)*np.log(1-p)\n\n\n","id":1,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"\n# We're going to create a dataset where the percentage of positives\n# is less than 10%\n# We use auto insurance policy data and group policies into two\n# categories: had at least one claim (8.4%)/had no claims (91.6%)\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split \nfrom sklearn.linear_model import LogisticRegression\n\nurl= 'https://juandmontoro.github.io/tap/data/claims.csv.gz'\ndf = pd.read_csv(url,index_col=0)\ndf.head()\n\n# we see that the response (variable claims/declared claims) is very imbalanced\ndf['claims'].value_counts(normalize=True)\n\ndf['claims']=df['claims']>0\n\ny = df['claims']\nX = df.drop(columns='claims')\n\nX_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=1)\n\nlogistic = LogisticRegression(max_iter = 20000)\nlogistic.fit(X_train,y_train);\ny_pred_train = logistic.predict(X_train)\nX_train['predict'] = y_pred_train\nX_train['predict'].value_counts(normalize=True)","id":2,"options":{"autorun":"","classes":"","comment":"","context":"interactive","dpi":72,"fig-cap":"","fig-height":5,"fig-width":7,"label":"","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+
+
+  </script><script type="module">
+  // Declare startupMessageqpyodide globally
+  globalThis.qpyodideStartupMessage = document.createElement("p");
+
+  // Function to set the button text
+  globalThis.qpyodideSetInteractiveButtonState = function(buttonText, enableCodeButton = true) {
+    document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+      btn.innerHTML = buttonText;
+      btn.disabled = !enableCodeButton;
+    });
+  }
+
+  // Function to update the status message in non-interactive cells
+  globalThis.qpyodideUpdateStatusMessage = function(message) {
+    document.querySelectorAll(".qpyodide-status-text.qpyodide-cell-needs-evaluation").forEach((elem) => {
+      elem.innerText = message;
+    });
+  }
+
+  // Function to update the status message
+  globalThis.qpyodideUpdateStatusHeader = function(message) {
+
+    if (!qpyodideShowStartupMessage) return;
+
+    qpyodideStartupMessage.innerHTML = message;
+  }
+
+  // Status header update with customized spinner message
+  globalThis.qpyodideUpdateStatusHeaderSpinner = function(message) {
+
+    qpyodideUpdateStatusHeader(`
+      <i class="fa-solid fa-spinner fa-spin qpyodide-icon-status-spinner"></i>
+      <span>${message}</span>
+    `);
+  }
+
+
+  // Function that attaches the document status message
+  function qpyodideDisplayStartupMessage(showStartupMessage) {
+    if (!showStartupMessage) {
+      return;
+    }
+
+    // Get references to header elements
+    const headerHTML = document.getElementById("title-block-header");
+    const headerRevealJS = document.getElementById("title-slide");
+
+    // Create the outermost div element for metadata
+    const quartoTitleMeta = document.createElement("div");
+    quartoTitleMeta.classList.add("quarto-title-meta");
+
+    // Create the first inner div element
+    const firstInnerDiv = document.createElement("div");
+    firstInnerDiv.setAttribute("id", "qpyodide-status-message-area");
+
+    // Create the second inner div element for "Pyodide Status" heading and contents
+    const secondInnerDiv = document.createElement("div");
+    secondInnerDiv.setAttribute("id", "qpyodide-status-message-title");
+    secondInnerDiv.classList.add("quarto-title-meta-heading");
+    secondInnerDiv.innerText = "Pyodide Status";
+
+    // Create another inner div for contents
+    const secondInnerDivContents = document.createElement("div");
+    secondInnerDivContents.setAttribute("id", "qpyodide-status-message-body");
+    secondInnerDivContents.classList.add("quarto-title-meta-contents");
+
+    // Describe the Pyodide state
+    qpyodideStartupMessage.innerText = "🟡 Loading...";
+    qpyodideStartupMessage.setAttribute("id", "qpyodide-status-message-text");
+    // Add `aria-live` to auto-announce the startup status to screen readers
+    qpyodideStartupMessage.setAttribute("aria-live", "assertive");
+
+    // Append the startup message to the contents
+    secondInnerDivContents.appendChild(qpyodideStartupMessage);
+
+    // Combine the inner divs and contents
+    firstInnerDiv.appendChild(secondInnerDiv);
+    firstInnerDiv.appendChild(secondInnerDivContents);
+    quartoTitleMeta.appendChild(firstInnerDiv);
+
+    // Determine where to insert the quartoTitleMeta element
+    if (headerHTML || headerRevealJS) {
+      // Append to the existing "title-block-header" element or "title-slide" div
+      (headerHTML || headerRevealJS).appendChild(quartoTitleMeta);
+    } else {
+      // If neither headerHTML nor headerRevealJS is found, insert after "Pyodide-monaco-editor-init" script
+      const monacoScript = document.getElementById("qpyodide-monaco-editor-init");
+      const header = document.createElement("header");
+      header.setAttribute("id", "title-block-header");
+      header.appendChild(quartoTitleMeta);
+      monacoScript.after(header);
+    }
+  }
+
+  qpyodideDisplayStartupMessage(qpyodideShowStartupMessage);
+  </script><script type="module">
+  // Create a logging setup
+  globalThis.qpyodideMessageArray = []
+
+  // Add messages to array
+  globalThis.qpyodideAddToOutputArray = function(message, type) {
+    qpyodideMessageArray.push({ message, type });
+  }
+
+  // Function to reset the output array
+  globalThis.qpyodideResetOutputArray = function() {
+    qpyodideMessageArray = [];
+  }
+
+  globalThis.qpyodideRetrieveOutput = function() {
+    return qpyodideMessageArray.map(entry => entry.message).join('\n');
+  }
+
+  // Start a timer
+  const initializePyodideTimerStart = performance.now();
+
+  // Encase with a dynamic import statement
+  globalThis.qpyodideInstance = await import(
+    qpyodideCustomizedPyodideOptions.indexURL + "pyodide.mjs").then(
+     async({ loadPyodide }) => {
+
+      console.log("Start loading Pyodide");
+      
+      // Populate Pyodide options with defaults or new values based on `pyodide`` meta
+      let mainPyodide = await loadPyodide(
+        qpyodideCustomizedPyodideOptions
+      );
+      
+      // Setup a namespace for global scoping
+      // await loadedPyodide.runPythonAsync("globalScope = {}"); 
+      
+      // Update status to reflect the next stage of the procedure
+      qpyodideUpdateStatusHeaderSpinner("Initializing Python Packages");
+
+      // Load the `micropip` package to allow installation of packages.
+      await mainPyodide.loadPackage("micropip");
+      await mainPyodide.runPythonAsync(`import micropip`);
+
+      // Load the `pyodide_http` package to shim uses of `requests` and `urllib3`.
+      // This allows for `pd.read_csv(url)` to work flawlessly.
+      // Details: https://github.com/coatless-quarto/pyodide/issues/9
+      await mainPyodide.loadPackage("pyodide_http");
+      await mainPyodide.runPythonAsync(`
+      import pyodide_http
+      pyodide_http.patch_all()  # Patch all libraries
+      `);
+
+      // Load the `matplotlib` package with necessary environment hook
+      await mainPyodide.loadPackage("matplotlib");
+
+      // Set the backend for matplotlib to be interactive.
+      await mainPyodide.runPythonAsync(`
+      import matplotlib
+      matplotlib.use("module://matplotlib_pyodide.html5_canvas_backend")
+      from matplotlib import pyplot as plt
+      `);
+
+      // Unlock interactive buttons
+      qpyodideSetInteractiveButtonState(
+        `<i class="fa-solid fa-play qpyodide-icon-run-code"></i> <span>Run Code</span>`, 
+        true
+      );
+
+      // Set document status to viable
+      qpyodideUpdateStatusHeader(
+        "🟢 Ready!"
+      );
+
+      // Assign Pyodide into the global environment
+      globalThis.mainPyodide = mainPyodide;
+
+      console.log("Completed loading Pyodide");
+      return mainPyodide;
+    }
+  );
+
+  // Stop timer
+  const initializePyodideTimerEnd = performance.now();
+
+  // Create a function to retrieve the promise object.
+  globalThis._qpyodideGetInstance = function() {
+      return qpyodideInstance;
+  }
+
+  </script>
+</head>
+<body class="quarto-light">
+<script src="mathjax-config.js"></script><script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs/loader.js"></script><script type="module" id="qpyodide-monaco-editor-init">
+
+  // Configure the Monaco Editor's loader
+  require.config({
+    paths: {
+      'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.46.0/min/vs'
+    }
+  });
+</script><div class="reveal">
+    <div class="slides">
+
+
+<section id="evaluation-and-selection-in-classification-models" class="title-slide slide level1 center" data-background-color="#447099"><h1>3. Evaluation and Selection in Classification Models</h1>
+<h2>
+Advanced Prediction Techniques in Business
+</h2>
+<h3>
+Prof.&nbsp;Juan D. Montoro-Pons | 2025/26
+</h3>
+</section><section><section id="introduction" class="title-slide slide level1 center" data-background-color="#447099"><h1>Introduction</h1>
+
+</section><section id="some-general-considerations" class="slide level2" style="color:#447099"><h2>Some General Considerations</h2>
+<p>&nbsp;</p>
+<ul>
+<li>
+<p>In classification problems, we follow the same scheme for model evaluation and selection as in regression: sample partitioning and resampling.</p>
+<ul>
+<li>Choosing hyperparameters or tuning parameters via cross-validation allows us to select the optimal specification within a model.</li>
+<li>Evaluating between models involves assessment outside the training sample.</li>
+</ul>
+</li>
+<li><p>However, classifier accuracy metrics differ from those used in regression problems.</p></li>
+<li><p>All classifier performance metrics can be applied to both training and test data: generally, metrics on training data are expected to be better than those on test data (a model tends to perform better on data it has already seen).</p></li>
+<li><p>Good metrics on the training sample and poor metrics on the test sample are indicative of <strong>overfitting</strong>: the model “learns” the training data, including its noise and outliers, which negatively affects its performance on new data (the test sample).</p></li>
+</ul></section><section id="the-null-classifier" class="slide level2 scrollable" style="color:#447099"><h2>The Null Classifier</h2>
+<p>&nbsp;</p>
+<p>A null (or <em>naive</em>) classifier is a simple baseline model used in classification tasks that does not use any features to make predictions but relies on the distribution of the target variable in the training data.</p>
+<p>Most common types of null classifiers:</p>
+<ol type="1">
+<li><p>Majority class classifier (or most frequent class): always predicts the majority class from the training data.</p></li>
+<li><p>Random (or stratified) classifier: predicts with probability based on the class distribution in the training data.</p></li>
+</ol>
+<blockquote>
+<p>The null classifier serves as a benchmark for comparing the performance of more complex models. If a model performs worse than the null classifier, it indicates that it is not effectively capturing patterns in the data.</p>
+</blockquote>
+</section><section class="slide level2">
+<img data-src="pics/accuracy_classifier.webp" class="r-stretch quarto-figure-center"><p class="caption">Naive classifier</p></section></section><section><section id="confusion-matrix-and-accuracy-metrics" class="title-slide slide level1 center" data-background-color="#447099"><h1>Confusion Matrix and Accuracy Metrics</h1>
+
+</section><section id="classification-errors" class="slide level2 scrollable" style="color:#447099"><h2>Classification Errors</h2>
+<p>&nbsp;</p>
+<p>A binary classifier can make two types of errors:</p>
+<ol type="1">
+<li>
+<strong>Type I Error</strong> or false positive (<strong>FP</strong>): predicting a positive outcome (1) for an instance that actually belongs to the negative class (0).</li>
+<li>
+<strong>Type II Error</strong> or false negative (<strong>FN</strong>): predicting a negative outcome (0) for an instance that actually belongs to the positive class (1).</li>
+</ol>
+<p>&nbsp;</p>
+<p>These errors can be summarized in a <strong>confusion matrix</strong>.</p>
+</section><section id="confusion-matrix" class="slide level2" style="color:#447099"><h2>Confusion Matrix</h2>
+<p>&nbsp;</p>
+<div class="r-fit-text">
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Negative Prediction (0)</th>
+<th style="text-align: center;">Positive Prediction (1)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>Actual Negative (0)</strong></td>
+<td style="text-align: center;">True Negative (TN)</td>
+<td style="text-align: center;"><span style="color: red;"> False Positive (FP) </span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>Actual Positive (1)</strong></td>
+<td style="text-align: center;"><span style="color: red;"> False Negative (FN) </span></td>
+<td style="text-align: center;">True Positive (TP)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="metrics-sensitivity-recall" class="slide level2" style="color:#447099"><h2>Metrics: Sensitivity (<em>recall</em>)</h2>
+
+<img data-src="pics/recall.jpg" class="r-stretch"></section><section id="metrics-precision" class="slide level2" style="color:#447099"><h2>Metrics: Precision</h2>
+
+<img data-src="pics/precision.jpg" class="r-stretch"></section><section id="example-confusion-matrix-and-metrics-training-data" class="slide level2" style="color:#447099"><h2>Example: Confusion Matrix and Metrics (Training Data)</h2>
+<p>&nbsp;</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-1-1">Example</a></li>
+<li><a href="#tabset-1-2">Confusion Matrix</a></li>
+<li><a href="#tabset-1-3">Classification Metrics</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<p>Using the Global Findex Dataset, we train a logistic model to classify individuals as having an account or not having an account.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href=""></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-4"><a href=""></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-5"><a href=""></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb1-6"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a><span class="co"># Sample of the Global Findex 2025 database. Goal: how mobile technology is expanding adults’ access to financial services worldwide. Source https://microdata.worldbank.org/catalog/7860/get-microdata</span></span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://juandmontoro.github.io/bigDataEco/data/findex_sample_20k.csv.gz'</span>)</span>
+<span id="cb1-11"><a href=""></a></span>
+<span id="cb1-12"><a href=""></a><span class="co"># Predict whether an individual has a financial account</span></span>
+<span id="cb1-13"><a href=""></a><span class="co"># Using multiple predictors and polynomial features to demonstrate</span></span>
+<span id="cb1-14"><a href=""></a><span class="co"># how linear models can produce out-of-range probability predictions</span></span>
+<span id="cb1-15"><a href=""></a></span>
+<span id="cb1-16"><a href=""></a><span class="co"># Using all available binary financial service variables plus demographics</span></span>
+<span id="cb1-17"><a href=""></a>features <span class="op">=</span> [<span class="st">"female"</span>, <span class="st">"age"</span>, <span class="st">"inc_q"</span>, <span class="st">"internet_use"</span>, <span class="st">"borrowed"</span>, <span class="st">"saved"</span>,<span class="st">"merchantpay_dig"</span>, <span class="st">"anydigpayment"</span>]</span>
+<span id="cb1-18"><a href=""></a></span>
+<span id="cb1-19"><a href=""></a>X <span class="op">=</span> df[features]</span>
+<span id="cb1-20"><a href=""></a>y <span class="op">=</span> df[<span class="st">'account'</span>]</span>
+<span id="cb1-21"><a href=""></a></span>
+<span id="cb1-22"><a href=""></a>X_train,X_test,y_train,y_test <span class="op">=</span> train_test_split(X,y,test_size<span class="op">=</span><span class="fl">0.2</span>,random_state<span class="op">=</span><span class="dv">786</span>)</span>
+<span id="cb1-23"><a href=""></a></span>
+<span id="cb1-24"><a href=""></a></span>
+<span id="cb1-25"><a href=""></a>logistic <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb1-26"><a href=""></a>logistic.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>y_pred_train <span class="op">=</span> logistic.predict(X_train)</span>
+<span id="cb2-2"><a href=""></a>cm <span class="op">=</span> metrics.confusion_matrix(y_true<span class="op">=</span>y_train,y_pred<span class="op">=</span> y_pred_train)</span>
+<span id="cb2-3"><a href=""></a><span class="co"># Display the confusion matrix</span></span>
+<span id="cb2-4"><a href=""></a>disp <span class="op">=</span> metrics.ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>[<span class="st">'no'</span>,<span class="st">'yes'</span>])</span>
+<span id="cb2-5"><a href=""></a>disp.plot()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure><p><img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Print the classification report</span></span>
+<span id="cb3-2"><a href=""></a><span class="bu">print</span>(metrics.classification_report(y_true<span class="op">=</span>y_train,y_pred<span class="op">=</span>y_pred_train,digits<span class="op">=</span><span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0   0.790838  0.994240  0.880950      5556
+           1   0.996450  0.860111  0.923275     10444
+
+    accuracy                       0.906687     16000
+   macro avg   0.893644  0.927176  0.902113     16000
+weighted avg   0.925051  0.906687  0.908578     16000</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="example-confusion-matrix-and-metrics-test-data" class="slide level2" style="color:#447099"><h2>Example: Confusion Matrix and Metrics (Test Data)</h2>
+<p>&nbsp;</p>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-2-1">Confusion Matrix</a></li>
+<li><a href="#tabset-2-2">Classification Metrics</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a></span>
+<span id="cb5-2"><a href=""></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb5-3"><a href=""></a>y_pred_test <span class="op">=</span> logistic.predict(X_test)</span>
+<span id="cb5-4"><a href=""></a>cm <span class="op">=</span> metrics.confusion_matrix(y_true<span class="op">=</span>y_test,y_pred<span class="op">=</span> y_pred_test)</span>
+<span id="cb5-5"><a href=""></a><span class="co"># Display the confusion matrix</span></span>
+<span id="cb5-6"><a href=""></a>disp <span class="op">=</span> metrics.ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>[<span class="st">'neg'</span>,<span class="st">'pos'</span>])</span>
+<span id="cb5-7"><a href=""></a>disp.plot()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure><p><img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-5-3.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Print the classification report</span></span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a><span class="bu">print</span>(metrics.classification_report(y_true<span class="op">=</span>y_test,y_pred<span class="op">=</span>y_pred_test,digits<span class="op">=</span><span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0   0.800576  0.996413  0.887824      1394
+           1   0.997792  0.867229  0.927941      2606
+
+    accuracy                       0.912250      4000
+   macro avg   0.899184  0.931821  0.907882      4000
+weighted avg   0.929063  0.912250  0.913960      4000</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="accuracy-and-precision-metrics" class="slide level2" style="color:#447099"><h2>Accuracy and Precision Metrics</h2>
+<p>&nbsp;</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 32%">
+<col style="width: 50%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Metric</strong></th>
+<th style="text-align: center;"><strong>Formula</strong></th>
+<th><strong>Description</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Prevalence</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TP + FN}{TP + TN + FP + FN}\]</span></td>
+<td>Proportion of actual positive instances among all instances.</td>
+</tr>
+<tr class="even">
+<td><strong>Detection Rate</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TP}{TP + TN + FP + FN}\]</span></td>
+<td>Proportion of true positives among all instances.</td>
+</tr>
+<tr class="odd">
+<td><strong>Accuracy</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TP + TN}{TP + TN + FP + FN}\]</span></td>
+<td>Proportion of correctly classified instances among all instances.</td>
+</tr>
+<tr class="even">
+<td><strong>Precision</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TP}{TP + FP}\]</span></td>
+<td>Proportion of true positives among all instances predicted as positive.</td>
+</tr>
+<tr class="odd">
+<td><strong>Sensitivity (Recall, TPR)</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TP}{TP + FN}\]</span></td>
+<td>Proportion of true positives among all actual positive instances.</td>
+</tr>
+<tr class="even">
+<td><strong>Specificity</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{TN}{TN + FP}\]</span></td>
+<td>Proportion of true negatives among all actual negative instances.</td>
+</tr>
+<tr class="odd">
+<td><strong>False Positive Rate (FPR)</strong></td>
+<td style="text-align: center;"><span class="math display">\[1-\textrm{Specificity}=\frac{FP}{TN + FP}\]</span></td>
+<td>Proportion of false positives among all actual negative instances.</td>
+</tr>
+<tr class="even">
+<td><strong>F1 Score</strong></td>
+<td style="text-align: center;"><span class="math display">\[2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}\]</span></td>
+<td>Harmonic mean of precision and recall.</td>
+</tr>
+<tr class="odd">
+<td><strong>Error Rate</strong></td>
+<td style="text-align: center;"><span class="math display">\[\frac{FP + FN}{TP + TN + FP + FN}\]</span></td>
+<td>Proportion of incorrectly classified instances among all instances.</td>
+</tr>
+<tr class="even">
+<td><strong>NIR</strong></td>
+<td style="text-align: center;"><strong>Proportion of the most frequent class</strong></td>
+<td>No Information Rate: proportion of the majority class in the dataset.</td>
+</tr>
+</tbody>
+</table></section></section><section><section id="log-losslogistic-loss-or-cross-entropy" class="title-slide slide level1 center" data-background-color="#447099"><h1>Log-Loss/Logistic Loss or Cross-Entropy</h1>
+
+</section><section id="log-loss-1" class="slide level2" style="color:#447099"><h2>Log-Loss</h2>
+<p>&nbsp;</p>
+<p>Metrics derived from the confusion matrix use class predictions but not probabilities. As an alternative, <strong>log-loss</strong> (also called <strong>logistic loss</strong> or <strong>cross-entropy</strong>) evaluates the quality of probabilities predicted by classification models, not just whether they get the class right.</p>
+<ul>
+<li><p>It comes from information theory and measures the distance or divergence between the predicted distribution and the true distribution (1/0). The metric quantifies the inefficiency of the model’s prediction.</p></li>
+<li>
+<p>For binary classification, we take the (negative) logarithm of the likelihood function:<br><span class="math display">\[\textrm{log-loss} = - \sum \frac{1}{n} [y_i \cdot \log(\hat{p}_i) + (1 - y_i) \cdot \log(1 - \hat{p}_i)]\]</span><br>
+For a set of <span class="math inline">\(n\)</span> observations, where:</p>
+<ul>
+<li>
+<span class="math inline">\(y_i \in \{0, 1\}\)</span> is the true class,</li>
+<li>
+<span class="math inline">\(\hat{p}_i \in [0, 1]\)</span> is the predicted probability that <span class="math inline">\(y_i = 1\)</span>,</li>
+</ul>
+</li>
+</ul></section><section id="log-loss-2" class="slide level2" style="color:#447099"><h2>Log-Loss</h2>
+<p>&nbsp;</p>
+<blockquote>
+<p>Log-loss measures the <strong>uncertainty</strong> of the model’s predictions. Additionally, it especially penalizes <strong>incorrect predictions with high confidence</strong>. On the other hand, the closer the predicted probability is to the true value (0 or 1), the lower the loss.</p>
+</blockquote>
+<ul>
+<li>
+<p>Log-loss introduces two penalty pathways:</p>
+<ul>
+<li>It allows penalizing uncertainty: correct predictions with low probability have a higher loss than those with higher probability.</li>
+<li>It severely penalizes an error generated by a prediction with low uncertainty (incorrect predictions with high confidence).</li>
+</ul>
+</li>
+<li><p>The range of values is between 0 (perfect model) to infinity (very confident but incorrect model). A high loss indicates serious prediction problems.</p></li>
+<li><p>It is also used as a cost function in models such as logistic or multinomial regression and in neural networks for parameter estimation (<em>learning</em>).</p></li>
+</ul></section><section id="log-loss-multinomial-classification" class="slide level2" style="color:#447099"><h2>Log-Loss: Multinomial Classification</h2>
+<p>&nbsp;</p>
+<p>The expression generalizes easily to the case of problems with multiple classes, penalizing the low probability assigned to the correct class: <span class="math display">\[\textrm{log-loss}=-\frac{1}{n}\sum_i\sum_k(y_{ik}log(\hat{p}_{ik}))\]</span></p>
+</section><section id="example-log-loss" class="slide level2" style="color:#447099"><h2>Example: Log-Loss</h2>
+<div id="qpyodide-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section></section><section><section id="roc-curve" class="title-slide slide level1 center" data-background-color="#447099"><h1>ROC Curve</h1>
+
+</section><section id="roc-curve-1" class="slide level2" style="color:#447099"><h2>ROC Curve</h2>
+<p>&nbsp;</p>
+<ul>
+<li><p>An ROC (<em>Receiver Operating Characteristic</em>) curve is a graphical representation that illustrates the performance of a binary classification system as its discrimination threshold is varied. The ROC curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at different threshold settings.</p></li>
+<li>
+<p>Characteristics:</p>
+<ul>
+<li>
+<strong>True Positive Rate (TPR, also sensitivity or recall)</strong>: proportion of actual positives correctly identified by the classifier.</li>
+<li>
+<strong>False Positive Rate (FPR or 1-specificity)</strong>: proportion of actual negatives incorrectly identified as positive by the classifier.</li>
+<li>
+<strong>Diagonal line</strong>: represents a random classifier with no discriminative ability (i.e., a 50% probability).</li>
+<li>
+<strong>Area Under the Curve (AUC)</strong>: the area under the ROC curve (AUC) quantifies the overall ability of the classifier to discriminate between positive and negative classes. An AUC of 1 indicates a perfect classifier, while an AUC of 0.5 indicates a classifier with no discriminative ability (diagonal line).</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The <strong>ROC curve</strong> plots the True Positive Rate (Recall) against the False Positive Rate (1 - Specificity) for different threshold values. The area under the ROC curve (AUC) is a measure of the model’s ability to distinguish between positive and negative classes.</p>
+</blockquote>
+</section><section id="roc-curve-training-data" class="slide level2" style="color:#447099"><h2>ROC Curve (Training Data)</h2>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>metrics.RocCurveDisplay.from_estimator(logistic,X_train,y_train)<span class="op">;</span></span>
+<span id="cb8-2"><a href=""></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb8-3"><a href=""></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-7-5.png" width="960" class="r-stretch"></section><section id="roc-curve-training-data-1" class="slide level2" style="color:#447099"><h2>ROC Curve (Training Data)</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Predict the probability of belonging to each class using the fitted model</span></span>
+<span id="cb9-2"><a href=""></a>logit_probs <span class="op">=</span> logistic.predict_proba(X_train)</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># Define a function that displays the ROC curve and some threshold values</span></span>
+<span id="cb9-5"><a href=""></a><span class="kw">def</span> plot_roc(labels, predictions, thresholds_every<span class="op">=</span><span class="dv">10</span>, title<span class="op">=</span><span class="st">''</span>,sizex<span class="op">=</span><span class="dv">6</span>,sizey<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb9-6"><a href=""></a>  <span class="co"># fp: false positive rates. tp: true positive rates</span></span>
+<span id="cb9-7"><a href=""></a>  fp, tp, thresholds <span class="op">=</span> metrics.roc_curve(labels, predictions)</span>
+<span id="cb9-8"><a href=""></a>  roc_auc <span class="op">=</span> metrics.auc(fp, tp)</span>
+<span id="cb9-9"><a href=""></a></span>
+<span id="cb9-10"><a href=""></a>  plt.figure(figsize<span class="op">=</span>(sizex, sizey))</span>
+<span id="cb9-11"><a href=""></a>  plt.plot(fp, tp, label<span class="op">=</span><span class="st">'ROC curve (area = </span><span class="sc">%0.2f</span><span class="st">)'</span> <span class="op">%</span> roc_auc, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'darkorange'</span>)</span>
+<span id="cb9-12"><a href=""></a>  plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'navy'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-13"><a href=""></a>  plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
+<span id="cb9-14"><a href=""></a>  plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
+<span id="cb9-15"><a href=""></a>  plt.xlim([<span class="op">-</span><span class="fl">0.03</span>, <span class="fl">1.0</span>])</span>
+<span id="cb9-16"><a href=""></a>  plt.ylim([<span class="fl">0.0</span>, <span class="fl">1.03</span>])</span>
+<span id="cb9-17"><a href=""></a>  plt.title(title)</span>
+<span id="cb9-18"><a href=""></a>  plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb9-19"><a href=""></a>  plt.grid(<span class="va">True</span>)</span>
+<span id="cb9-20"><a href=""></a></span>
+<span id="cb9-21"><a href=""></a>  <span class="co"># Show some thresholds</span></span>
+<span id="cb9-22"><a href=""></a>  thresholdsLength <span class="op">=</span> <span class="bu">len</span>(thresholds)</span>
+<span id="cb9-23"><a href=""></a>  colorMap<span class="op">=</span>plt.get_cmap(<span class="st">'jet'</span>, thresholdsLength)</span>
+<span id="cb9-24"><a href=""></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, thresholdsLength, thresholds_every):</span>
+<span id="cb9-25"><a href=""></a>    threshold_value_with_max_four_decimals <span class="op">=</span> <span class="bu">str</span>(thresholds[i])[:<span class="dv">5</span>]</span>
+<span id="cb9-26"><a href=""></a>    plt.text(fp[i] <span class="op">-</span> <span class="fl">0.03</span>, tp[i] <span class="op">+</span> <span class="fl">0.005</span>, threshold_value_with_max_four_decimals, fontdict<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">15</span>}, color<span class="op">=</span>colorMap(i<span class="op">/</span>thresholdsLength))<span class="op">;</span></span>
+<span id="cb9-27"><a href=""></a>  plt.show()</span>
+<span id="cb9-28"><a href=""></a></span>
+<span id="cb9-29"><a href=""></a><span class="co"># Apply the function to training data and predictions on training set</span></span>
+<span id="cb9-30"><a href=""></a>plot_roc(y_train,logit_probs[:,<span class="dv">1</span>],thresholds_every<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb9-31"><a href=""></a>      title<span class="op">=</span><span class="st">'Logistic classifier: training sample'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-8-7.png" class="quarto-figure quarto-figure-center r-stretch" width="576"></section><section id="roc-curve-test-data" class="slide level2" style="color:#447099"><h2>ROC Curve (Test Data)</h2>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>metrics.RocCurveDisplay.from_estimator(logistic,X_test,y_test)<span class="op">;</span></span>
+<span id="cb10-2"><a href=""></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb10-3"><a href=""></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-9-9.png" width="960" class="r-stretch"></section><section id="roc-curve-test-data-1" class="slide level2" style="color:#447099"><h2>ROC Curve (Test Data)</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>logit_probs <span class="op">=</span> logistic.predict_proba(X_test)</span>
+<span id="cb11-2"><a href=""></a><span class="co"># Apply the function to training data and predictions on training set</span></span>
+<span id="cb11-3"><a href=""></a>plot_roc(y_test,logit_probs[:,<span class="dv">1</span>], thresholds_every<span class="op">=</span><span class="dv">400</span>,</span>
+<span id="cb11-4"><a href=""></a>      title<span class="op">=</span><span class="st">'Logistic classifier: test sample'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-10-11.png" class="quarto-figure quarto-figure-center r-stretch" width="576"></section><section id="uses-of-the-roc-curve" class="slide level2" style="color:#447099"><h2>Uses of the ROC Curve</h2>
+<p>&nbsp;</p>
+<ul>
+<li>
+<p><strong>Model comparison</strong>: ROC curves and AUC are used to compare the performance of different classifiers. AUC provides a metric of the overall performance of a binary classification model by quantifying its ability to distinguish between positive and negative classes. The AUC value ranges between 0 and 1, where:</p>
+<ul>
+<li>AUC = 1: Perfect classifier</li>
+<li>AUC = 0.5: Classifier with no discriminative power (equivalent to random guessing)</li>
+<li>AUC &lt; 0.5: Classifier that performs worse than chance</li>
+</ul>
+</li>
+<li>
+<p><strong>Threshold selection</strong>: ROC curves help select the optimal threshold for classification by balancing the trade-off between TPR and FPR.</p>
+<ul>
+<li>Choose the point on the curve closest (Euclidean distance) to the top-left corner of the plot<br>
+</li>
+<li>Evaluate the costs associated with false positives and false negatives. By assigning different costs to these errors, one can determine the threshold that minimizes the total cost.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The AUC represents the probability that a randomly chosen positive instance is ranked above a randomly chosen negative instance.</p>
+</blockquote>
+</section></section><section><section id="class-imbalance" class="title-slide slide level1 center" data-background-color="#447099"><h1>Class Imbalance</h1>
+
+</section><section id="imbalanced-data-in-classification-models" class="slide level2" style="color:#447099"><h2>Imbalanced Data in Classification Models</h2>
+<p>&nbsp;</p>
+<p>Classification models on data with class imbalance often pose additional challenges:</p>
+<ul>
+<li><p>Non-informative and unreliable predictive quality metrics:</p></li>
+<li><p>A model can show high accuracy simply by always predicting the majority class.</p></li>
+<li><p>Metrics like accuracy do not reflect true performance on minority classes.</p></li>
+<li>
+<p>Generally, the model ignores the minority class(es):</p>
+<ul>
+<li>The model tends to ignore or misclassify the less represented classes.</li>
+<li>Learning is biased as the model captures dominant patterns (ignoring those of minority classes).</li>
+</ul>
+</li>
+<li><p>The model may fail when facing real data where classes are more balanced.</p></li>
+</ul></section><section id="example-class-imbalance" class="slide level2" style="color:#447099"><h2>Example: Class Imbalance</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-3-1">The Data</a></li>
+<li><a href="#tabset-3-2">Confusion Matrix</a></li>
+<li><a href="#tabset-3-3">Predictive Quality Metrics</a></li>
+<li><a href="#tabset-3-4">ROC Curve</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a></span>
+<span id="cb12-2"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-3"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-4"><a href=""></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb12-5"><a href=""></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb12-6"><a href=""></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb12-7"><a href=""></a></span>
+<span id="cb12-8"><a href=""></a>url <span class="op">=</span> <span class="st">'https://juandmontoro.github.io/tap/data/unbalanced.csv'</span></span>
+<span id="cb12-9"><a href=""></a>df <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb12-10"><a href=""></a></span>
+<span id="cb12-11"><a href=""></a>y <span class="op">=</span> df[<span class="st">'y'</span>]</span>
+<span id="cb12-12"><a href=""></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb12-13"><a href=""></a>X_train,X_test,y_train,y_test <span class="op">=</span> train_test_split(X,y,test_size<span class="op">=</span><span class="fl">0.2</span>,random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb12-14"><a href=""></a></span>
+<span id="cb12-15"><a href=""></a>logit <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb12-16"><a href=""></a>logit.fit(X_train,y_train)<span class="op">;</span></span>
+<span id="cb12-17"><a href=""></a>ypred <span class="op">=</span> logit.predict(X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>We use a simulated dataset with 5% positives.</p>
+</div>
+<div id="tabset-3-2">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a></span>
+<span id="cb13-2"><a href=""></a>cm <span class="op">=</span> metrics.confusion_matrix(y_true<span class="op">=</span>y_test,y_pred<span class="op">=</span> ypred)</span>
+<span id="cb13-3"><a href=""></a>disp <span class="op">=</span> metrics.ConfusionMatrixDisplay(cm,display_labels<span class="op">=</span>[<span class="va">False</span>,<span class="va">True</span>])</span>
+<span id="cb13-4"><a href=""></a>disp.plot()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure><p><img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-12-13.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="bu">print</span>(metrics.classification_report(y_true<span class="op">=</span>y_test,y_pred<span class="op">=</span>ypred,digits<span class="op">=</span><span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0   0.938144  0.983784  0.960422       925
+           1   0.500000  0.200000  0.285714        75
+
+    accuracy                       0.925000      1000
+   macro avg   0.719072  0.591892  0.623068      1000
+weighted avg   0.905284  0.925000  0.909819      1000</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-4">
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">80</span>, <span class="dv">80</span>))</span>
+<span id="cb16-2"><a href=""></a>metrics.RocCurveDisplay.from_estimator(logit,X_test,y_test)<span class="op">;</span></span>
+<span id="cb16-3"><a href=""></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>, title<span class="op">=</span><span class="st">'Training set'</span>, title_fontsize<span class="op">=</span><span class="st">'medium'</span>)</span>
+<span id="cb16-4"><a href=""></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb16-5"><a href=""></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure><p><img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-14-15.png" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure><p><img data-src="03b_evaluation_files/figure-revealjs/unnamed-chunk-14-16.png" width="7680"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="imbalanced-data-in-classification-models-solutions" class="slide level2" style="color:#447099"><h2>Imbalanced Data in Classification Models: Solutions</h2>
+<p>&nbsp;</p>
+<p>In general, the existence of imbalanced classes significantly hinders model fitting, requiring additional techniques. <em>Common solutions</em>:</p>
+<ul>
+<li>Oversampling the minority class</li>
+<li>Undersampling the majority class</li>
+<li>Using balanced metrics (unweighted averages over classes or <code>macro avg</code>)</li>
+<li>Algorithms sensitive to imbalance: e.g., algorithms that train sequentially on errors from previous stages (boosting) or that incorporate an additional cost for errors in the minority class.</li>
+</ul></section></section>
+</div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="03b_evaluation_files/libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="03b_evaluation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/quarto-support/support.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/notes/notes.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/search/search.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/zoom/zoom.js"></script><script src="03b_evaluation_files/libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+
+        height: 1080,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+            let selectedAnnoteEl;
+            const selectorForAnnotation = ( cell, annotation) => {
+              let cellAttr = 'data-code-cell="' + cell + '"';
+              let lineAttr = 'data-code-annotation="' +  annotation + '"';
+              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+              return selector;
+            }
+            const selectCodeLines = (annoteEl) => {
+              const doc = window.document;
+              const targetCell = annoteEl.getAttribute("data-target-cell");
+              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+              const lineIds = lines.map((line) => {
+                return targetCell + "-" + line;
+              })
+              let top = null;
+              let height = null;
+              let parent = null;
+              if (lineIds.length > 0) {
+                  //compute the position of the single el (top and bottom and make a div)
+                  const el = window.document.getElementById(lineIds[0]);
+                  top = el.offsetTop;
+                  height = el.offsetHeight;
+                  parent = el.parentElement.parentElement;
+                if (lineIds.length > 1) {
+                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                  height = bottom - top;
+                }
+                if (top !== null && height !== null && parent !== null) {
+                  // cook up a div (if necessary) and position it 
+                  let div = window.document.getElementById("code-annotation-line-highlight");
+                  if (div === null) {
+                    div = window.document.createElement("div");
+                    div.setAttribute("id", "code-annotation-line-highlight");
+                    div.style.position = 'absolute';
+                    parent.appendChild(div);
+                  }
+                  div.style.top = top - 2 + "px";
+                  div.style.height = height + 4 + "px";
+                  div.style.left = 0;
+                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                  if (gutterDiv === null) {
+                    gutterDiv = window.document.createElement("div");
+                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                    gutterDiv.style.position = 'absolute';
+                    const codeCell = window.document.getElementById(targetCell);
+                    const gutter = codeCell.querySelector('.code-annotation-gutter');
+                    gutter.appendChild(gutterDiv);
+                  }
+                  gutterDiv.style.top = top - 2 + "px";
+                  gutterDiv.style.height = height + 4 + "px";
+                }
+                selectedAnnoteEl = annoteEl;
+              }
+            };
+            const unselectCodeLines = () => {
+              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+              elementsIds.forEach((elId) => {
+                const div = window.document.getElementById(elId);
+                if (div) {
+                  div.remove();
+                }
+              });
+              selectedAnnoteEl = undefined;
+            };
+              // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              elRect = undefined;
+              if (selectedAnnoteEl) {
+                selectCodeLines(selectedAnnoteEl);
+              }
+            }, 10)
+          );
+          function throttle(fn, ms) {
+          let throttle = false;
+          let timer;
+            return (...args) => {
+              if(!throttle) { // first call gets through
+                  fn.apply(this, args);
+                  throttle = true;
+              } else { // all the others get throttled
+                  if(timer) clearTimeout(timer); // cancel #2
+                  timer = setTimeout(() => {
+                    fn.apply(this, args);
+                    timer = throttle = false;
+                  }, ms);
+              }
+            };
+          }
+            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+            for (let i=0; i<annoteTargets.length; i++) {
+              const annoteTarget = annoteTargets[i];
+              const targetCell = annoteTarget.getAttribute("data-target-cell");
+              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+              const contentFn = () => {
+                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                if (content) {
+                  const tipContent = content.cloneNode(true);
+                  tipContent.classList.add("code-annotation-tip-content");
+                  return tipContent.outerHTML;
+                }
+              }
+              const config = {
+                allowHTML: true,
+                content: contentFn,
+                onShow: (instance) => {
+                  selectCodeLines(instance.reference);
+                  instance.reference.classList.add('code-annotation-active');
+                  window.tippy.hideAll();
+                },
+                onHide: (instance) => {
+                  unselectCodeLines();
+                  instance.reference.classList.remove('code-annotation-active');
+                },
+                maxWidth: 300,
+                delay: [50, 0],
+                duration: [200, 0],
+                offset: [5, 10],
+                arrow: true,
+                appendTo: function(el) {
+                  return el.parentElement.parentElement.parentElement;
+                },
+                interactive: true,
+                interactiveBorder: 10,
+                theme: 'light-border',
+                placement: 'right',
+                popperOptions: {
+                  modifiers: [
+                  {
+                    name: 'flip',
+                    options: {
+                      flipVariations: false, // true by default
+                      allowedAutoPlacements: ['right'],
+                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                    },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    options: {
+                      mainAxis: false,
+                      altAxis: false
+                    }
+                  }
+                  ]        
+                }      
+              };
+              window.tippy(annoteTarget, config); 
+            }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script><script type="module">
+    /**
+     * Factory function to create different types of cells based on options.
+     * @param {Object} cellData - JSON object containing code, id, and options.
+     * @returns {BaseCell} Instance of the appropriate cell class.
+     */
+    globalThis.qpyodideCreateCell = function(cellData) {
+        switch (cellData.options.context) {
+            case 'interactive':
+                return new InteractiveCell(cellData);
+            case 'output':
+                return new OutputCell(cellData);
+            case 'setup':
+                return new SetupCell(cellData);
+            default:
+                return new InteractiveCell(cellData);
+                // throw new Error('Invalid cell type specified in options.');
+        }
+    }  
+
+    /**
+     * CellContainer class for managing a collection of cells.
+     * @class
+     */
+    class CellContainer {
+        /**
+         * Constructor for CellContainer.
+         * Initializes an empty array to store cells.
+         * @constructor
+         */
+        constructor() {
+            this.cells = [];
+        }
+
+        /**
+         * Add a cell to the container.
+         * @param {BaseCell} cell - Instance of a cell (BaseCell or its subclasses).
+         */
+        addCell(cell) {
+            this.cells.push(cell);
+        }
+
+        /**
+         * Execute all cells in the container.
+         */
+        async executeAllCells() {
+            for (const cell of this.cells) {
+                await cell.executeCode();
+            }
+        }
+
+        /**
+         * Execute all cells in the container.
+         */
+        async autoRunExecuteAllCells() {
+            for (const cell of this.cells) {
+                await cell.autoRunExecuteCode();
+            }
+        }
+    }
+      
+
+    /**
+     * BaseCell class for handling code execution using Pyodide.
+     * @class
+     */
+    class BaseCell {
+        /**
+         * Constructor for BaseCell.
+         * @constructor
+         * @param {Object} cellData - JSON object containing code, id, and options.
+         */
+        constructor(cellData) {
+            this.code = cellData.code;
+            this.id = cellData.id;
+            this.options = cellData.options;
+            this.insertionLocation = document.getElementById(`qpyodide-insertion-location-${this.id}`);
+            this.executionLock = false;
+        }
+
+        cellOptions() {
+            // Subclass this? 
+            console.log(this.options);
+            return this.options;
+        }
+
+        /**
+         * Execute the Python code using Pyodide.
+         * @returns {*} Result of the code execution.
+         */
+        async executeCode() {
+            // Execute code using Pyodide
+            const result = getPyodide().runPython(this.code);
+            return result;
+        }
+    };
+
+    /**
+     * InteractiveCell class for creating editable code editor with Monaco Editor.
+     * @class
+     * @extends BaseCell
+     */
+    class InteractiveCell extends BaseCell {
+
+        /**
+         * Constructor for InteractiveCell.
+         * @constructor
+         * @param {Object} cellData - JSON object containing code, id, and options.
+         */
+        constructor(cellData) {
+            super(cellData);
+            this.editor = null;
+            this.setupElement();
+            this.setupMonacoEditor();
+        }
+
+        /**
+         * Set up the interactive cell elements
+         */
+        setupElement() {
+
+            // Create main div element
+            var mainDiv = document.createElement('div');
+            mainDiv.id = `qpyodide-interactive-area-${this.id}`;
+            mainDiv.className = `qpyodide-interactive-area`;
+            if (this.options.classes) {
+                mainDiv.className += " " + this.options.classes
+            }
+
+            // Add a unique cell identifier that users can customize
+            if (this.options.label) {
+                mainDiv.setAttribute('data-id', this.options.label);
+            }
+
+            // Create toolbar div
+            var toolbarDiv = document.createElement('div');
+            toolbarDiv.className = 'qpyodide-editor-toolbar';
+            toolbarDiv.id = `qpyodide-editor-toolbar-${this.id}`;
+
+            // Create a div to hold the left buttons
+            var leftButtonsDiv = document.createElement('div');
+            leftButtonsDiv.className = 'qpyodide-editor-toolbar-left-buttons';
+
+            // Create a div to hold the right buttons
+            var rightButtonsDiv = document.createElement('div');
+            rightButtonsDiv.className = 'qpyodide-editor-toolbar-right-buttons';
+
+            // Create Run Code button
+            var runCodeButton = document.createElement('button');
+            runCodeButton.className = 'btn btn-default qpyodide-button qpyodide-button-run';
+            runCodeButton.disabled = true;
+            runCodeButton.type = 'button';
+            runCodeButton.id = `qpyodide-button-run-${this.id}`;
+            runCodeButton.textContent = '🟡 Loading Pyodide...';
+            runCodeButton.title = `Run code (Shift + Enter)`;
+
+            // Append buttons to the leftButtonsDiv
+            leftButtonsDiv.appendChild(runCodeButton);
+
+            // Create Reset button
+            var resetButton = document.createElement('button');
+            resetButton.className = 'btn btn-light btn-xs qpyodide-button qpyodide-button-reset';
+            resetButton.type = 'button';
+            resetButton.id = `qpyodide-button-reset-${this.id}`;
+            resetButton.title = 'Start over';
+            resetButton.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+
+            // Create Copy button
+            var copyButton = document.createElement('button');
+            copyButton.className = 'btn btn-light btn-xs qpyodide-button qpyodide-button-copy';
+            copyButton.type = 'button';
+            copyButton.id = `qpyodide-button-copy-${this.id}`;
+            copyButton.title = 'Copy code';
+            copyButton.innerHTML = '<i class="fa-regular fa-copy"></i>';
+
+            // Append buttons to the rightButtonsDiv
+            rightButtonsDiv.appendChild(resetButton);
+            rightButtonsDiv.appendChild(copyButton);
+
+            // Create console area div
+            var consoleAreaDiv = document.createElement('div');
+            consoleAreaDiv.id = `qpyodide-console-area-${this.id}`;
+            consoleAreaDiv.className = 'qpyodide-console-area';
+
+            // Create editor div
+            var editorDiv = document.createElement('div');
+            editorDiv.id = `qpyodide-editor-${this.id}`;
+            editorDiv.className = 'qpyodide-editor';
+
+            // Create output code area div
+            var outputCodeAreaDiv = document.createElement('div');
+            outputCodeAreaDiv.id = `qpyodide-output-code-area-${this.id}`;
+            outputCodeAreaDiv.className = 'qpyodide-output-code-area';
+            outputCodeAreaDiv.setAttribute('aria-live', 'assertive');
+
+            // Create pre element inside output code area
+            var preElement = document.createElement('pre');
+            preElement.style.visibility = 'hidden';
+            outputCodeAreaDiv.appendChild(preElement);
+
+            // Create output graph area div
+            var outputGraphAreaDiv = document.createElement('div');
+            outputGraphAreaDiv.id = `qpyodide-output-graph-area-${this.id}`;
+            outputGraphAreaDiv.className = 'qpyodide-output-graph-area';
+
+            // Append buttons to the toolbar
+            toolbarDiv.appendChild(leftButtonsDiv);
+            toolbarDiv.appendChild(rightButtonsDiv);
+
+            // Append all elements to the main div
+            mainDiv.appendChild(toolbarDiv);
+            consoleAreaDiv.appendChild(editorDiv);
+            consoleAreaDiv.appendChild(outputCodeAreaDiv);
+            mainDiv.appendChild(consoleAreaDiv);
+            mainDiv.appendChild(outputGraphAreaDiv);
+
+            // Insert the dynamically generated object at the document location.
+            this.insertionLocation.appendChild(mainDiv);
+        }
+
+        /**
+         * Set up Monaco Editor for code editing.
+         */
+        setupMonacoEditor() {
+
+            // Retrieve the previously created document elements
+            this.runButton = document.getElementById(`qpyodide-button-run-${this.id}`);
+            this.resetButton = document.getElementById(`qpyodide-button-reset-${this.id}`);
+            this.copyButton = document.getElementById(`qpyodide-button-copy-${this.id}`);
+            this.editorDiv = document.getElementById(`qpyodide-editor-${this.id}`);
+            this.outputCodeDiv = document.getElementById(`qpyodide-output-code-area-${this.id}`);
+            this.outputGraphDiv = document.getElementById(`qpyodide-output-graph-area-${this.id}`);
+            
+            // Store reference to the object
+            var thiz = this;
+
+            // Load the Monaco Editor and create an instance
+            require(['vs/editor/editor.main'], function () {
+                thiz.editor = monaco.editor.create(
+                    thiz.editorDiv, {
+                        value: thiz.code,
+                        language: 'python',
+                        theme: 'vs-light',
+                        automaticLayout: true,           // Works wonderfully with RevealJS
+                        scrollBeyondLastLine: false,
+                        minimap: {
+                            enabled: false
+                        },
+                        fontSize: '17.5pt',              // Bootstrap is 1 rem
+                        renderLineHighlight: "none",     // Disable current line highlighting
+                        hideCursorInOverviewRuler: true,  // Remove cursor indictor in right hand side scroll bar
+                        readOnly: thiz.options['read-only'] ?? false
+                    }
+                );
+            
+                // Store the official counter ID to be used in keyboard shortcuts
+                thiz.editor.__qpyodideCounter = thiz.id;
+            
+                // Store the official div container ID
+                thiz.editor.__qpyodideEditorId = `qpyodide-editor-${thiz.id}`;
+            
+                // Store the initial code value and options
+                thiz.editor.__qpyodideinitialCode = thiz.code;
+                thiz.editor.__qpyodideOptions = thiz.options;
+            
+                // Set at the model level the preferred end of line (EOL) character to LF.
+                // This prevent `\r\n` from being given to the Pyodide engine if the user is on Windows.
+                // See details in: https://github.com/coatless/quarto-Pyodide/issues/94
+                // Associated error text: 
+                // Error: <text>:1:7 unexpected input
+            
+                // Retrieve the underlying model
+                const model = thiz.editor.getModel();
+                // Set EOL for the model
+                model.setEOL(monaco.editor.EndOfLineSequence.LF);
+            
+                // Dynamically modify the height of the editor window if new lines are added.
+                let ignoreEvent = false;
+                const updateHeight = () => {
+                const contentHeight = thiz.editor.getContentHeight();
+                // We're avoiding a width change
+                //editorDiv.style.width = `${width}px`;
+                thiz.editorDiv.style.height = `${contentHeight}px`;
+                    try {
+                        ignoreEvent = true;
+                
+                        // The key to resizing is this call
+                        thiz.editor.layout();
+                    } finally {
+                        ignoreEvent = false;
+                    }
+                };
+            
+                // Helper function to check if selected text is empty
+                function isEmptyCodeText(selectedCodeText) {
+                    return (selectedCodeText === null || selectedCodeText === undefined || selectedCodeText === "");
+                }
+            
+                // Registry of keyboard shortcuts that should be re-added to each editor window
+                // when focus changes.
+                const addPyodideKeyboardShortCutCommands = () => {
+                // Add a keydown event listener for Shift+Enter to run all code in cell
+                thiz.editor.addCommand(monaco.KeyMod.Shift | monaco.KeyCode.Enter, () => {
+                    // Retrieve all text inside the editor
+                    thiz.runCode(thiz.editor.getValue());
+                });
+            
+                // Add a keydown event listener for CMD/Ctrl+Enter to run selected code
+                thiz.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+                        // Get the selected text from the editor
+                        const selectedText = thiz.editor.getModel().getValueInRange(thiz.editor.getSelection());
+                        // Check if no code is selected
+                        if (isEmptyCodeText(selectedText)) {
+                            // Obtain the current cursor position
+                            let currentPosition = thiz.editor.getPosition();
+                            // Retrieve the current line content
+                            let currentLine = thiz.editor.getModel().getLineContent(currentPosition.lineNumber);
+                    
+                            // Propose a new position to move the cursor to
+                            let newPosition = new monaco.Position(currentPosition.lineNumber + 1, 1);
+                    
+                            // Check if the new position is beyond the last line of the editor
+                            if (newPosition.lineNumber > thiz.editor.getModel().getLineCount()) {
+                                // Add a new line at the end of the editor
+                                thiz.editor.executeEdits("addNewLine", [{
+                                range: new monaco.Range(newPosition.lineNumber, 1, newPosition.lineNumber, 1),
+                                text: "\n", 
+                                forceMoveMarkers: true,
+                                }]);
+                            }
+                            
+                            // Run the entire line of code.
+                            thiz.runCode(currentLine);
+                    
+                            // Move cursor to new position
+                            thiz.editor.setPosition(newPosition);
+                        } else {
+                            // Code to run when Ctrl+Enter is pressed with selected code
+                            thiz.runCode(selectedText);
+                        }
+                    });
+                }
+            
+                // Register an on focus event handler for when a code cell is selected to update
+                // what keyboard shortcut commands should work.
+                // This is a workaround to fix a regression that happened with multiple
+                // editor windows since Monaco 0.32.0 
+                // https://github.com/microsoft/monaco-editor/issues/2947
+                thiz.editor.onDidFocusEditorText(addPyodideKeyboardShortCutCommands);
+            
+                // Register an on change event for when new code is added to the editor window
+                thiz.editor.onDidContentSizeChange(updateHeight);
+            
+                // Manually re-update height to account for the content we inserted into the call
+                updateHeight();
+                    
+            });
+
+            
+            // Add a click event listener to the run button
+            thiz.runButton.onclick = function () {
+                thiz.runCode(
+                    thiz.editor.getValue()
+                );
+            };
+            
+            // Add a click event listener to the reset button
+            thiz.copyButton.onclick = function () {
+                // Retrieve current code data
+                const data = thiz.editor.getValue();
+                
+                // Write code data onto the clipboard.
+                navigator.clipboard.writeText(data || "");
+            };
+            
+            // Add a click event listener to the copy button
+            thiz.resetButton.onclick = function () {
+                thiz.editor.setValue(thiz.editor.__qpyodideinitialCode);
+            };
+        }
+
+        disableInteractiveCells() {
+            // Enable locking of execution for the cell
+            this.executionLock = true;
+
+            // Disallowing execution of other code cells
+            document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+                btn.disabled = true;
+            });
+        }
+
+        enableInteractiveCells() {
+            // Remove locking of execution for the cell
+            this.executionLock = false;
+
+            // All execution of other code cells
+            document.querySelectorAll(".qpyodide-button-run").forEach((btn) => {
+                btn.disabled = false;
+            });
+        }
+
+        /**
+         * Execute the Python code inside the editor.
+         */
+        async runCode(code) {
+            
+            // Check if we have an execution lock
+            if (this.executeLock) return; 
+            
+            this.disableInteractiveCells();
+
+            // Force wait procedure
+            await mainPyodide;
+
+            // Clear the output stock
+            qpyodideResetOutputArray();
+
+            // Generate a new canvas element, avoid attaching until the end
+            let graphFigure = document.createElement("figure");
+            document.pyodideMplTarget = graphFigure;
+
+            console.log("Running code!");
+            // Obtain results from the base class
+            try {
+                // Always check to see if the user adds new packages
+                await mainPyodide.loadPackagesFromImports(code);
+
+                // Process result
+                const output = await mainPyodide.runPythonAsync(code);
+
+                // Add output
+                qpyodideAddToOutputArray(output, "stdout");
+            } catch (err) {
+                // Add error message
+                qpyodideAddToOutputArray(err, "stderr");
+                // TODO: There has to be a way to remove the Pyodide portion of the errors... 
+            }
+
+            const result = qpyodideRetrieveOutput();
+
+            // Nullify the output area of content
+            this.outputCodeDiv.innerHTML = "";
+            this.outputGraphDiv.innerHTML = "";        
+
+            // Design an output object for messages
+            const pre = document.createElement("pre");
+            if (/\S/.test(result)) {
+                // Display results as HTML elements to retain output styling
+                const div = document.createElement("div");
+                div.innerHTML = result;
+                pre.appendChild(div);
+            } else {
+                // If nothing is present, hide the element.
+                pre.style.visibility = "hidden";
+            }
+
+            // Add output under interactive div
+            this.outputCodeDiv.appendChild(pre);
+
+            // Place the graphics onto the page
+            if (graphFigure) {
+
+                if (this.options['fig-cap']) {
+                    // Create figcaption element
+                    const figcaptionElement = document.createElement('figcaption');
+                    figcaptionElement.innerText = this.options['fig-cap'];
+                    // Append figcaption to figure
+                    graphFigure.appendChild(figcaptionElement);    
+                }
+
+                this.outputGraphDiv.appendChild(graphFigure);
+            }
+
+            // Re-enable execution
+            this.enableInteractiveCells();
+        }
+    };
+
+    /**
+     * OutputCell class for customizing and displaying output.
+     * @class
+     * @extends BaseCell
+     */
+    class OutputCell extends BaseCell {
+        /**
+         * Constructor for OutputCell.
+         * @constructor
+         * @param {Object} cellData - JSON object containing code, id, and options.
+         */
+        constructor(cellData) {
+          super(cellData);
+        }
+      
+        /**
+         * Display customized output on the page.
+         * @param {*} output - Result to be displayed.
+         */
+        displayOutput(output) {
+            const results = this.executeCode();
+            return results;
+        }
+      }
+
+    /**
+     * SetupCell class for suppressed output.
+     * @class
+     * @extends BaseCell
+     */
+    class SetupCell extends BaseCell {
+        /**
+         * Constructor for SetupCell.
+         * @constructor
+         * @param {Object} cellData - JSON object containing code, id, and options.
+         */
+        constructor(cellData) {
+            super(cellData);
+        }
+
+        /**
+         * Execute the Python code without displaying the results.
+         */
+        runSetupCode() {
+            // Execute code without displaying output
+            this.executeCode();
+        }
+    };
+    </script><script type="module">
+    // Handle cell initialization initialization
+    qpyodideCellDetails.map(
+        (entry) => {
+          // Handle the creation of the element
+          qpyodideCreateCell(entry);
+        }
+      );
+    </script>
+
+
+</body></html>
